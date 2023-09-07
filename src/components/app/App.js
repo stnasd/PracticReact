@@ -1,13 +1,23 @@
+import { BrowserRouter as Router } from 'react-router-dom'
+import { Suspense } from 'react';
+
 import './App.css';
 import AppHeader from '../header/AppHeader';
-import MainPage from '../MainPage/MainPage';
+import Spinner from '../Spinner/Spinner';
+
+import AnimatedRoutes from './AnimatedRoutes';
+
 
 function App() {
   return (
-    <div className="App">
-      <AppHeader />
-      <MainPage />
-    </div>
+    <Router>
+      <div className='app'>
+        <AppHeader />
+        <Suspense fallback={<Spinner />}>
+          <AnimatedRoutes />
+        </Suspense>
+      </div >
+    </Router>
   );
 }
 
