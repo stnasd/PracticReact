@@ -1,4 +1,4 @@
-import {minus} from "./minus";
+import { minus } from "./minus";
 
 describe('minus', function () {
     test('positive', () => {
