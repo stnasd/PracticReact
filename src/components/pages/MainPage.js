@@ -8,7 +8,6 @@ import { motion } from 'framer-motion'
 
 
 const MainPage = () => {
-
     return (
         <motion.div className="app__main"
             initial={{ opacity: 0, transition: { duration: 0.1 } }}
