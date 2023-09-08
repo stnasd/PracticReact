@@ -1,4 +1,3 @@
-import { useHttp } from '../hooks/http.hook';
 import CharsList from '../CharsList/CharsList';
 import SearchItem from '../SearchItem/SearchItem';
 import './MainPage.scss'
