@@ -11,20 +11,13 @@ jobs:
       matrix:
         node-varsion: [ 16.x ]
     steps:
-      - uses: actions/checkout@v3
-      - name: Staring Node.js ${{ matrix.node-version }}
-        uses: actions/setup-node@v3
-        with:
-          node-version: ${{ matrix.node-version }}
-      - name: install modules
+      - name: Get repository code
+        uses: actions/checkout@v3
+      - name: Install deps
         run: npm install
-      - name: build project
-        run: npm run build
-      - name: build storybook
-        run: npm run build:storybook
-      - name: unit test
-        run: npm run test:unit
-      - name: e2e test
-        run: npm run test:e2e
-      - name: lint code
+      - name: Test app
+        run: npm run test
+      - name: Lint code
         run: npm run lint
+      - name: Build App
+        run: npm run build
