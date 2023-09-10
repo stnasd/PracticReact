@@ -15,6 +15,7 @@ const CharInfoBlock = () => {
 
     useEffect(() => {
         dispatch(fetchCharacters())
+        // eslint-disable-next-line
     }, [])
 
 
