@@ -1,8 +1,8 @@
-import SearchItem from "../SearchItem/SearchItem";
+import SearchItem from "../../SearchItem/SearchItem";
 import { Link } from "react-router-dom";
 import './SearchPage.scss'
 import { motion } from 'framer-motion'
-import inkognito from '../../images/inkognito.jpg'
+import inkognito from '../../../images/inkognito.jpg'
 
 
 

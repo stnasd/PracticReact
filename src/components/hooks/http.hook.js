@@ -1,5 +1,4 @@
 
-
 export const useHttp = () => {
 
     const request = async (url, method = 'GET', body = null, headers = { 'Content-Type': 'application/json' }) => {
@@ -14,8 +13,5 @@ export const useHttp = () => {
             throw e;
         }
     };
-
-    return {
-        request
-    }
+    return request
 }

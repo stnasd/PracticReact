@@ -1,5 +1,5 @@
-import CharsList from '../CharsList/CharsList';
-import SearchItem from '../SearchItem/SearchItem';
+import CharsList from '../../CharsList/CharsList';
+import SearchItem from '../../SearchItem/SearchItem';
 import './MainPage.scss'
 import { motion } from 'framer-motion'
 

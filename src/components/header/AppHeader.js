@@ -12,7 +12,7 @@ const AppHeader = () => {
             <nav className='app__header-nav'>
                 <Link to="/"><img src={'https://developer.mozilla.org/ru/'} alt="header logo" /></Link>
                 <form action="" method="get">
-                    <input name="s" placeholder="Искать здесь..." type="search" value="" />
+                    <input name="s" placeholder="Искать здесь..." type="search" defaultValue="1" />
                     <Link to="/search"><button type="submit">Поиск</button></Link>
                 </form>
                 <div className='app__header-buttons'>

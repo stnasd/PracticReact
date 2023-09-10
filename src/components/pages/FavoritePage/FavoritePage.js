@@ -1,7 +1,7 @@
 import './FavoritePage.scss'
 import { Link } from 'react-router-dom'
 import { motion } from 'framer-motion'
-import inkognito from '../../images/inkognito.jpg'
+import inkognito from '../../../images/inkognito.jpg'
 
 const FavoritePage = () => {
     return (

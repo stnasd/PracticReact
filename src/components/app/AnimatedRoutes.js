@@ -1,10 +1,10 @@
-import MainPage from '../pages/MainPage'
-import CharInfoBlock from '../pages/CharInfoBlock';
-import SearchPage from '../pages/SearchPage';
-import HistoryPage from '../pages/HistoryPage';
-import FavoritePage from '../pages/FavoritePage';
-import SignupPage from '../pages/SignupPage';
-import LoginPage from '../pages/LoginPage';
+import MainPage from '../pages/MainPage/MainPage'
+import CharInfoBlock from '../pages/CharInfoPage/CharInfoBlock';
+import SearchPage from '../pages/SearchPage/SearchPage';
+import HistoryPage from '../pages/HistoryPage/HistoryPage';
+import FavoritePage from '../pages/FavoritePage/FavoritePage';
+import SignupPage from '../pages/SignupPage/SignupPage';
+import LoginPage from '../pages/LoginPage/LoginPage';
 import { Routes, Route, useLocation } from 'react-router-dom'
 
 import { AnimatePresence } from 'framer-motion'
