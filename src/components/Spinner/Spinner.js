@@ -1,7 +1,5 @@
 import './Spinner.css'
 
-
-
 const Spinner = () => {
     return (
         <div id="cssload-pgloading">
@@ -16,7 +14,5 @@ const Spinner = () => {
         </div>
     )
 }
-
-
 
 export default Spinner;
