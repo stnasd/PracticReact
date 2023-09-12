@@ -10,10 +10,6 @@ const FavoritePage = lazy(() => import('../pages/FavoritePage/FavoritePage'));
 const SignupPage = lazy(() => import('../pages/SignupPage/SignupPage'));
 const LoginPage = lazy(() => import('../pages/LoginPage/LoginPage'));
 
-
-
-
-
 const AnimatedRoutes = () => {
     const location = useLocation()
     return (

@@ -4,8 +4,6 @@ import './SearchPage.scss'
 import { motion } from 'framer-motion'
 import inkognito from '../../../images/inkognito.jpg'
 
-
-
 const SearchPage = () => {
     return (
         <motion.div className="app__search"
@@ -49,6 +47,5 @@ const SearchPage = () => {
         </motion.div>
     )
 }
-
 
 export default SearchPage;

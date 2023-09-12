@@ -7,7 +7,6 @@ import Spinner from '../Spinner/Spinner';
 
 import AnimatedRoutes from './AnimatedRoutes';
 
-
 function App() {
   return (
     <Router>

@@ -4,8 +4,6 @@ import { motion } from 'framer-motion'
 
 import './CharInfoBlock.scss'
 
-
-
 const CharInfoBlock = () => {
     return (
         <motion.div
@@ -19,8 +17,5 @@ const CharInfoBlock = () => {
         </motion.div>
     )
 }
-
-
-
 
 export default CharInfoBlock;

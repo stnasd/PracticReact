@@ -6,8 +6,6 @@ const useCharService = () => {
     const _apiBase = 'https://rickandmortyapi.com/api/character';
     const _pageBase = 1
 
-
-
     const getAllCharacters = async (page = _pageBase) => {
         const res = await request(`${_apiBase}/?page=${page}`)
         return res.results.map(_transformCharacter)

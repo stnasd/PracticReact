@@ -1,8 +1,5 @@
 import { Link } from "react-router-dom"
 
-
-
-
 const SearchItem = () => {
     return (
         <form action="" method="get" className="app__main-form">
@@ -12,6 +9,5 @@ const SearchItem = () => {
         </form>
     )
 }
-
 
 export default SearchItem

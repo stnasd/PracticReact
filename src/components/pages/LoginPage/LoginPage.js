@@ -1,7 +1,6 @@
 import { motion } from 'framer-motion'
 import './LoginPage.scss'
 
-
 const LoginPage = () => {
     return (
         <motion.div className='login'
@@ -35,6 +34,5 @@ const LoginPage = () => {
         </motion.div>
     )
 }
-
 
 export default LoginPage;

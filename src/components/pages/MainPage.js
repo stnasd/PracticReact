@@ -3,9 +3,6 @@ import SearchItem from '../SearchItem/SearchItem';
 import './MainPage.scss'
 import { motion } from 'framer-motion'
 
-
-
-
 const MainPage = () => {
     return (
         <motion.div className="app__main"
@@ -20,6 +17,5 @@ const MainPage = () => {
         </motion.div>
     )
 }
-
 
 export default MainPage;
