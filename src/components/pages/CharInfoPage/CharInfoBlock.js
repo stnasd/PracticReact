@@ -1,10 +1,8 @@
-import CharInfo from "../CharInfo/CharInfo";
-import SearchItem from "../SearchItem/SearchItem";
+import CharInfo from "../../CharInfo/CharInfo";
+import SearchItem from "../../SearchItem/SearchItem";
 import { motion } from 'framer-motion'
 
 import './CharInfoBlock.scss'
-
-
 
 const CharInfoBlock = () => {
     return (
@@ -19,8 +17,5 @@ const CharInfoBlock = () => {
         </motion.div>
     )
 }
-
-
-
 
 export default CharInfoBlock;
