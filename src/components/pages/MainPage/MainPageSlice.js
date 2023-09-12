@@ -28,7 +28,7 @@ const MainPageSlice = createSlice({
             state.page = state.page + 1
         },
         addCharactersItems: (state, action) => {
-            state.characters = [...state.characters, ...action.payload];
+            state.characters.push(...[...action.payload]);
         }
     },
     extraReducers: (builder) => {

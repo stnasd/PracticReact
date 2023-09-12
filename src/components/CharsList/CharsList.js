@@ -3,8 +3,6 @@ import { Link } from 'react-router-dom'
 
 const CharsList = (props) => {
 
-    const chars = { ...props }
-
     const renderItems = (arr) => {
         return arr.map(item => {
             const { image, name, id, origin } = item
@@ -22,13 +20,13 @@ const CharsList = (props) => {
             )
         })
     }
-    const charElements = renderItems(chars.charactersList)
+
+    const charElements = renderItems(props.charactersList)
     return (
         <>
             {charElements}
         </>
     )
 }
-
 
 export default CharsList;
