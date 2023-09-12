@@ -1,5 +1,5 @@
 import './AppHeader.scss'
-
+import google from '../../images/google.png'
 import { Link } from 'react-router-dom'
 
 
@@ -10,7 +10,7 @@ const AppHeader = () => {
     const header =
         logger ? <header className='app__header'>
             <nav className='app__header-nav'>
-                <Link to="/"><img src={'https://developer.mozilla.org/ru/'} alt="header logo" /></Link>
+                <Link to="/"><img src={google} alt="header logo" /></Link>
                 <form action="" method="get">
                     <input name="s" placeholder="Искать здесь..." type="search" defaultValue="1" />
                     <Link to="/search"><button type="submit">Поиск</button></Link>
@@ -23,7 +23,7 @@ const AppHeader = () => {
         </header> :
             <header className='app__header'>
                 <nav className='app__header-nav'>
-                    <Link to="/"><img src={'https://developer.mozilla.org/ru/'} alt="header logo" /></Link>
+                    <Link to="/"><img src={google} alt="header logo" /></Link>
                     <div className='app__header-buttons'>
                         <Link to="/favorite"><button >Избранное</button></Link>
                         <Link to="/history"><button>История</button></Link>

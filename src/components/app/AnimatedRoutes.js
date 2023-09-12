@@ -1,13 +1,18 @@
-import MainPage from '../pages/MainPage/MainPage'
-import CharInfoBlock from '../pages/CharInfoPage/CharInfoBlock';
-import SearchPage from '../pages/SearchPage/SearchPage';
-import HistoryPage from '../pages/HistoryPage/HistoryPage';
-import FavoritePage from '../pages/FavoritePage/FavoritePage';
-import SignupPage from '../pages/SignupPage/SignupPage';
-import LoginPage from '../pages/LoginPage/LoginPage';
+import { lazy } from 'react'
 import { Routes, Route, useLocation } from 'react-router-dom'
-
 import { AnimatePresence } from 'framer-motion'
+
+const MainPage = lazy(() => import('../pages/MainPage/MainPage'));
+const CharInfoBlock = lazy(() => import('../pages/CharInfoPage/CharInfoBlock'));
+const SearchPage = lazy(() => import('../pages/SearchPage/SearchPage'));
+const HistoryPage = lazy(() => import('../pages/HistoryPage/HistoryPage'));
+const FavoritePage = lazy(() => import('../pages/FavoritePage/FavoritePage'));
+const SignupPage = lazy(() => import('../pages/SignupPage/SignupPage'));
+const LoginPage = lazy(() => import('../pages/LoginPage/LoginPage'));
+
+
+
+
 
 const AnimatedRoutes = () => {
     const location = useLocation()

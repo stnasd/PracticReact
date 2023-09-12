@@ -1,5 +1,6 @@
 .app{
     &__main{
+        position: relative;
         margin-top: 30px;
         width: 85vw;
         height: 100%;
@@ -104,4 +105,11 @@
             text-transform: uppercase;
             color: #fff;
     }
+}
+.button__char{
+    position:absolute;
+    bottom: 18px;
+    left: 25%;
+    padding: 15px 50px;
+    border-radius: 5px;
 }

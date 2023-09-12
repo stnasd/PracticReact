@@ -13,5 +13,7 @@ export const useHttp = () => {
             throw e;
         }
     };
-    return request
+    return {
+        request
+    }
 }

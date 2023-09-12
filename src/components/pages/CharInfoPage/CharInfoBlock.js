@@ -1,25 +1,12 @@
 import CharInfo from "../../CharInfo/CharInfo";
 import SearchItem from "../../SearchItem/SearchItem";
 import { motion } from 'framer-motion'
-import { useDispatch } from 'react-redux';
-import { useEffect } from "react";
 
 import './CharInfoBlock.scss'
-import { fetchCharacters } from "./CharInfoSlice";
 
 
 
 const CharInfoBlock = () => {
-
-    const dispatch = useDispatch()
-
-    useEffect(() => {
-        dispatch(fetchCharacters())
-        // eslint-disable-next-line
-    }, [])
-
-
-
     return (
         <motion.div
             className="char__block"

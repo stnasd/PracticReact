@@ -1,5 +1,5 @@
 import { configureStore } from '@reduxjs/toolkit'
-import characters from '../pages/CharInfoPage/CharInfoSlice'
+import characters from '../pages/MainPage/MainPageSlice'
 
 
 
@@ -16,7 +16,7 @@ const stringMidleWare = () => (next) => (action) => {
 
 
 const store = configureStore({
-    reducer: { characters, },
+    reducer: { characters: characters },
     middleware: getDefaultMidleWare => getDefaultMidleWare().concat(stringMidleWare),
     devTools: process.env.NODE_ENV !== 'production'
 })

@@ -2,27 +2,34 @@ import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import useCharService from '../../../services/CharsServices'
 
 
+
+
 const initialState = {
     characters: [],
-    charLoadingStatus: 'idle'
+    newCharacters: [],
+    charLoadingStatus: 'idle',
+    page: 1
 }
-
 
 export const fetchCharacters = createAsyncThunk(
     'characters/fetchCharacters',
     () => {
         const { getAllCharacters } = useCharService()
-        console.log(getAllCharacters())
-        return getAllCharacters()
+        const res = getAllCharacters()
+        return res
     }
 )
 
-
-const CharInfoSlice = createSlice({
+const MainPageSlice = createSlice({
     name: 'characters',
     initialState,
     reducers: {
-
+        addCharactersPage: (state) => {
+            state.page = state.page + 1
+        },
+        addCharactersItems: (state, action) => {
+            state.characters = [...state.characters, ...action.payload];
+        }
     },
     extraReducers: (builder) => {
         builder
@@ -41,7 +48,10 @@ const CharInfoSlice = createSlice({
 });
 
 
+const { actions, reducer } = MainPageSlice;
 
-const { reducer } = CharInfoSlice;
-
+export const {
+    addCharactersPage,
+    addCharactersItems
+} = actions;
 export default reducer;
