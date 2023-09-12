@@ -1,7 +1,6 @@
-// import { useHttp } from "../components/hooks/http.hook"
+import { useHttp } from "../components/hooks/http.hook"
 
 
-<<<<<<< HEAD
 const useCharService = () => {
     const { request } = useHttp();
     const _apiBase = 'https://rickandmortyapi.com/api/character';
@@ -33,10 +32,3 @@ const useCharService = () => {
 }
 
 export default useCharService;
-=======
-// const useFilmService = () => {
-//     const { request } = useHttp()
-
-
-// }
->>>>>>> a46b271245a53de97134ecd7e72eef16b61bf65b
