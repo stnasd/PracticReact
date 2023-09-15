@@ -11,10 +11,10 @@ export const apiFireBaseSlice = createApi({
     tagTypes: ["User"],
     endpoints: (builder) => ({
         signup: builder.mutation({
-            async queryfn(...args) {
+            async queryfn(args) {
                 try {
                     const auth = getAuth()
-                    await createUserWithEmailAndPassword(auth, ...args)
+                    await createUserWithEmailAndPassword(auth, args.email, args.pass)
                         .then((userCredential) => {
                             const user = userCredential.user;
                             setDoc(doc(db, "Users"), {
