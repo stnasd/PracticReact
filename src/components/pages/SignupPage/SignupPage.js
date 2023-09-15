@@ -1,7 +1,6 @@
 import './SignupPage.scss'
 import Form from '../../Form/Form';
 import { motion } from 'framer-motion'
-import { createUserWithEmailAndPassword } from 'firebase/auth';
 import { useSignupMutation } from '../../../apiFirebase/apiFireBaseSlice';
 
 
