@@ -50,6 +50,7 @@
         background-color: #434141;
         box-shadow: 5px 5px 10px rgba(0, 0, 0, .25);
         padding: 15px;
+        position: relative;
         cursor: pointer;
         transition: 0.3s transform;
         img {
@@ -59,12 +60,14 @@
             transform: translate(-15px, -15px);
         }
         button{
-            margin-top: 10px;
             height: 25px;
             border-radius: 5px;
             font-weight: 800;
             border: 1px solid #000;
             box-shadow: 1px 1px 5px #000;
+            position: absolute;
+            bottom: 6px;
+            right: 25px;
             &:hover{
                 background-color:  #64affa;;
             }

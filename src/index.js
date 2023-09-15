@@ -1,9 +1,8 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
 import { Provider } from 'react-redux';
-
 import './components/styles/index.css';
-
+import './firebase'
 import App from './components/app/App';
 import store from './components/store';
 

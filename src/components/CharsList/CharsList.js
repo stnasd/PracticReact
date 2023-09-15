@@ -15,7 +15,7 @@ const CharsList = (props) => {
                     <img src={`${image}`} alt={name} />
                     <div className="char__name">name : {name}</div>
                     <div className="char__item-playedby">Origin : {origin}</div>
-                    <Link to="/info"><button>Больше информации</button></Link>
+                    <Link to="/info"><button className='char__info-button'>Больше информации</button></Link>
                 </div>
             )
         })

@@ -1,9 +1,6 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import useCharService from '../../../services/CharsServices'
 
-
-
-
 const initialState = {
     characters: [],
     newCharacters: [],
@@ -46,7 +43,6 @@ const MainPageSlice = createSlice({
             .addDefaultCase(() => { })
     }
 });
-
 
 const { actions, reducer } = MainPageSlice;
 
