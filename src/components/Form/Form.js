@@ -1,5 +1,4 @@
 import { useState } from "react";
-import { useSignupMutation } from "../../apiFirebase/apiFireBaseSlice";
 
 
 
@@ -8,15 +7,8 @@ const Form = ({ title, onSubmit }) => {
     const [email, setEmail] = useState('2222')
     const [pass, setPass] = useState('111')
 
-    const x = onSubmit({ email, pass })
-    console.log(x)
-
-    const fn = (...args) => {
-        const { email } = args
-        console.log(email)
-    }
-
-    fn({ email, pass })
+    const resSignupHook = onSubmit({ email, pass })
+    console.log(resSignupHook)
     return (
         <div className='signup__block'>
             <input

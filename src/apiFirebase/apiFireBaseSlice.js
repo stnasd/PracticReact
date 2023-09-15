@@ -17,7 +17,6 @@ export const apiFireBaseSlice = createApi({
                     await createUserWithEmailAndPassword(auth, ...args)
                         .then((userCredential) => {
                             const user = userCredential.user;
-                            console.log('dasdasdas')
                             setDoc(doc(db, "Users"), {
                                 ...user
                             });
