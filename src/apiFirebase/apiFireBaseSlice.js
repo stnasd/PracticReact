@@ -1,8 +1,7 @@
 import { createApi, fakeBaseQuery } from "@reduxjs/toolkit/query/react";
 import { getAuth } from "firebase/auth";
-import { createUserWithEmailAndPassword } from 'firebase/auth';
-import { doc, setDoc } from "firebase/firestore";
-import { db } from "../firebase";
+import { createUserWithEmailAndPassword, signInWithEmailAndPassword } from 'firebase/auth';
+
 
 
 export const apiFireBaseSlice = createApi({
@@ -10,21 +9,31 @@ export const apiFireBaseSlice = createApi({
     baseQuery: fakeBaseQuery(),
     tagTypes: ["User"],
     endpoints: (builder) => ({
+        login: builder.query({
+            async queryFn(args) {
+                try {
+                    const auth = getAuth()
+                    await signInWithEmailAndPassword(auth, args.email, args.pass)
+                    return {
+                        data: 'ok'
+                    }
+                } catch (error) {
+                    console.log(error)
+                    return { data: 'error' }
+                }
+            },
+            providesTags: ["User"],
+        }),
         signup: builder.mutation({
-            async queryfn(args) {
+            async queryFn(args) {
                 try {
                     const auth = getAuth()
                     await createUserWithEmailAndPassword(auth, args.email, args.pass)
-                        .then((userCredential) => {
-                            const user = userCredential.user;
-                            setDoc(doc(db, "Users"), {
-                                ...user
-                            });
-                            return {
-                                data: user
-                            }
-                        })()
+                    return {
+                        data: 'ok'
+                    }
                 } catch (error) {
+                    console.log(error)
                     return { data: 'error' }
                 }
             },
@@ -34,6 +43,7 @@ export const apiFireBaseSlice = createApi({
 })
 export const {
     useSignupMutation,
+    useLoginQuery,
 } = apiFireBaseSlice;
 
 

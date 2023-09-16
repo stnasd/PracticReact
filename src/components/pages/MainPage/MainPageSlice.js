@@ -2,8 +2,8 @@ import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import useCharService from '../../../services/CharsServices'
 
 const initialState = {
-    characters: [],
-    newCharacters: [],
+    charactersList: [],
+    newCharactersList: [],
     charLoadingStatus: 'idle',
     page: 1
 }
@@ -25,7 +25,7 @@ const MainPageSlice = createSlice({
             state.page = state.page + 1
         },
         addCharactersItems: (state, action) => {
-            state.characters.push(...[...action.payload]);
+            state.charactersList.push(...[...action.payload]);
         }
     },
     extraReducers: (builder) => {
@@ -34,7 +34,7 @@ const MainPageSlice = createSlice({
             .addCase(fetchCharacters.fulfilled,
                 (state, action) => {
                     state.charLoadingStatus = 'idle';
-                    state.characters = action.payload;
+                    state.charactersList = action.payload;
                 })
             .addCase(fetchCharacters.rejected,
                 state => {
