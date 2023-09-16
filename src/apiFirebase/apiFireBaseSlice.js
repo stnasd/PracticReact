@@ -18,7 +18,6 @@ export const apiFireBaseSlice = createApi({
                         data: 'ok'
                     }
                 } catch (error) {
-                    console.log(error)
                     return { data: 'error' }
                 }
             },

@@ -5,7 +5,7 @@ import { useSignupMutation } from '../../../apiFirebase/apiFireBaseSlice';
 import { useNavigate } from 'react-router-dom'
 
 const SignupPage = () => {
-    const [createHero, { isLoading }] = useSignupMutation()
+    const [createHero,] = useSignupMutation()
     const navigate = useNavigate()
     const onHandleSubmit = ({ email, pass }) => {
         createHero({ email, pass }).unwrap()
