@@ -14,11 +14,7 @@ const MainPage = () => {
     const dispatch = useDispatch()
     const { getAllCharacters } = useCharService()
     const loadingStatus = useSelector(state => state.characters.charLoadingStatus)
-<<<<<<< HEAD
     const charscaractersList = useSelector(state => state.characters.charactersList)
-=======
-    const charscaractersList = useSelector(state => state.characters.characters)
->>>>>>> 8af18e691da3026bd24648674fadd759ad96fd91
     const charsPage = useSelector(state => state.characters.page)
 
     useEffect(() => {
