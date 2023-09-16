@@ -7,8 +7,11 @@ const Form = ({ title, onSubmit }) => {
     const [email, setEmail] = useState('2222')
     const [pass, setPass] = useState('111')
 
-    const resSignupHook = onSubmit({ email, pass })
-    console.log(resSignupHook)
+    const [createHero, { isLoading }] = onSubmit()
+    const onHandleClick = () => {
+        createHero({ email, pass }).unwrap()
+    }
+    console.log(isLoading)
     return (
         <div className='signup__block'>
             <input
@@ -27,6 +30,7 @@ const Form = ({ title, onSubmit }) => {
             />
             <button
                 className='login__block-button'
+                onClick={onHandleClick}
             >
                 {title}
             </button>

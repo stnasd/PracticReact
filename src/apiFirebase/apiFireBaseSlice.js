@@ -23,7 +23,7 @@ export const apiFireBaseSlice = createApi({
                             return {
                                 data: user
                             }
-                        })
+                        })()
                 } catch (error) {
                     return { data: 'error' }
                 }
