@@ -5,10 +5,10 @@ import { useSignupMutation } from '../../../apiFirebase/apiFireBaseSlice';
 import { useNavigate } from 'react-router-dom'
 
 const SignupPage = () => {
-    const [createHero,] = useSignupMutation()
+    const [createUser,] = useSignupMutation()
     const navigate = useNavigate()
     const onHandleSubmit = ({ email, pass }) => {
-        createHero({ email, pass }).unwrap()
+        createUser({ email, pass })
         navigate('/login')
     }
 
@@ -23,8 +23,5 @@ const SignupPage = () => {
         </motion.div>
     );
 };
-
-
-
 
 export default SignupPage;

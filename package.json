@@ -33,7 +33,10 @@
     "extends": [
       "react-app",
       "react-app/jest"
-    ]
+    ],
+    "rules": {
+      "no-multiple-empty-lines": ["error", { "max": 2, "maxBOF": 1}]
+    }
   },
   "browserslist": {
     "production": [

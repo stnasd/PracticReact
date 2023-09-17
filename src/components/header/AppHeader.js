@@ -4,9 +4,9 @@ import { Link } from 'react-router-dom'
 import { useSelector } from 'react-redux';
 
 const AppHeader = () => {
-    const logger = useSelector(state => state.filterLoggerUser.userLogin)
+    const userAuthorized = useSelector(state => state.filterLoggerUser.userLogin)
 
-    const header = logger ?
+    const header = userAuthorized ?
         <header className='app__header'>
             <nav className='app__header-nav'>
                 <Link to="/"><img src={google} alt="header logo" /></Link>
@@ -35,7 +35,5 @@ const AppHeader = () => {
         header
     )
 }
-
-
 
 export default AppHeader;

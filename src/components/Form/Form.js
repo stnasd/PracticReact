@@ -1,8 +1,5 @@
 import { useState } from "react";
 
-
-
-
 const Form = ({ title, onHandleSubmit }) => {
     const [email, setEmail] = useState('')
     const [pass, setPass] = useState('')
