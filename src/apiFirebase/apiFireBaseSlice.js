@@ -2,8 +2,6 @@ import { createApi, fakeBaseQuery } from "@reduxjs/toolkit/query/react";
 import { getAuth } from "firebase/auth";
 import { createUserWithEmailAndPassword, signInWithEmailAndPassword } from 'firebase/auth';
 
-
-
 export const apiFireBaseSlice = createApi({
     reducerPath: "api",
     baseQuery: fakeBaseQuery(),
@@ -39,10 +37,8 @@ export const apiFireBaseSlice = createApi({
         })
     })
 })
+
 export const {
     useSignupMutation,
     useLoginQuery,
 } = apiFireBaseSlice;
-
-
-
