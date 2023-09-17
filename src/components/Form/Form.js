@@ -1,4 +1,5 @@
 import { useState } from "react";
+import PropTypes from 'prop-types'
 
 const Form = ({ title, onHandleSubmit }) => {
     const [email, setEmail] = useState('')
@@ -32,6 +33,11 @@ const Form = ({ title, onHandleSubmit }) => {
             </button>
         </div>
     )
+}
+
+Form.propTypes = {
+    title: PropTypes.string,
+    onHandleSubmit: PropTypes.func
 }
 
 export default Form;
