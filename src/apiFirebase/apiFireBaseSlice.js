@@ -7,6 +7,7 @@ export const apiFireBaseSlice = createApi({
     baseQuery: fakeBaseQuery(),
     tagTypes: ["User"],
     endpoints: (builder) => ({
+        queryOptions: 'skip',
         login: builder.query({
             async queryFn(args) {
                 try {

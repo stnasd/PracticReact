@@ -1,5 +1,7 @@
 import { useState } from "react";
 import PropTypes from 'prop-types'
+// import { useDispatch, useSelector } from 'react-redux';
+// import {userEmail,userPass} from './formSlice'
 
 const Form = ({ title, onHandleSubmit }) => {
     const [email, setEmail] = useState('')

@@ -3,7 +3,6 @@ import useCharService from '../../../services/CharsServices'
 
 const initialState = {
     charactersList: [],
-    newCharactersList: [],
     charLoadingStatus: 'idle',
     page: 1
 }
