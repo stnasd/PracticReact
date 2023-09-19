@@ -2,14 +2,15 @@ import './SignupPage.scss'
 import Form from '../../Form/Form';
 import { motion } from 'framer-motion'
 import { useSignupMutation } from '../../../apiFirebase/apiFireBaseSlice';
-import { useNavigate } from 'react-router-dom'
+import { useNavigate } from 'react-router-dom';
 
 const SignupPage = () => {
     const [createUser,] = useSignupMutation()
-    const navigate = useNavigate()
-    const onHandleSubmit = ({ email, pass }) => {
-        createUser({ email, pass })
-        navigate('/login')
+    // const navigate = useNavigate()
+    const onHandleSubmit = (args) => {
+        // createUser(args)
+        console.log('dadasdasdasd')
+        // navigate('/login')
     }
 
     return (
@@ -21,7 +22,7 @@ const SignupPage = () => {
         >
             <Form title="Зарегистрироваться" onHandleSubmit={onHandleSubmit} />
         </motion.div>
-    );
-};
+    )
+}
 
 export default SignupPage;

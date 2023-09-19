@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom'
 import { useSelector } from 'react-redux';
 
 const AppHeader = () => {
-    const userAuthorized = useSelector(state => state.filterLoggerUser.userLogin)
+    const userAuthorized = useSelector(state => state.login.userLogIn)
 
     const header = userAuthorized ?
         <header className='app__header'>

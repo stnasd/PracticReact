@@ -7,16 +7,16 @@ export const apiFireBaseSlice = createApi({
     baseQuery: fakeBaseQuery(),
     tagTypes: ["User"],
     endpoints: (builder) => ({
-        queryOptions: 'skip',
         login: builder.query({
             async queryFn(args) {
                 try {
                     const auth = getAuth()
-                    await signInWithEmailAndPassword(auth, args.email, args.pass)
+                    await signInWithEmailAndPassword(auth,args.email,args.pass)
                     return {
                         data: 'ok'
                     }
                 } catch (error) {
+                    console.log(error)
                     return { data: 'error' }
                 }
             },
@@ -41,5 +41,5 @@ export const apiFireBaseSlice = createApi({
 
 export const {
     useSignupMutation,
-    useLoginQuery,
+    useLazyLoginQuery,
 } = apiFireBaseSlice;

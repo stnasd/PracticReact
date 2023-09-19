@@ -1,38 +1,30 @@
-import { useState } from "react";
 import PropTypes from 'prop-types'
-// import { useDispatch, useSelector } from 'react-redux';
-// import {userEmail,userPass} from './formSlice'
+import { useDispatch,} from 'react-redux';
+import {changeUserEmail,changeUserPass} from './FormSlice'
+import { useSelector } from 'react-redux'
 
 const Form = ({ title, onHandleSubmit }) => {
-    const [email, setEmail] = useState('')
-    const [pass, setPass] = useState('')
-
+    const dispatch = useDispatch()
+    const email = useSelector(state=>state.form.userEmail)
+    const pass = useSelector(state=>state.form.userPass)
     return (
         <div className='signup__block'>
-            <input
-                className='signup__block-input'
-                type="email"
-                value={email}
-                onChange={(e) => setEmail(e.target.value)}
-                placeholder="email"
-            />
-            <input
-                className='signup__block-input'
-                type="password"
-                value={pass}
-                onChange={(e) => setPass(e.target.value)}
-                placeholder="password"
-            />
-            <button
-                className='login__block-button'
-                onClick={() => {
-                    onHandleSubmit({ email, pass });
-                    setEmail('');
-                    setPass('');
-                }}
-            >
-                {title}
-            </button>
+                <input
+                    type='text'
+                    placeholder="Enter email" 
+                    className='block-input'
+                    onChange={e=>dispatch(changeUserEmail(e.target.value))}/>
+                <input
+                    type='password'
+                    placeholder="Enter password" 
+                    className='block-input'
+                    onChange={e=>dispatch(changeUserPass(e.target.value))}/>
+                    <button
+                    className='login__block-button'
+                    onClick={()=>onHandleSubmit({email,pass})}
+                >
+                    {title}
+                </button>
         </div>
     )
 }

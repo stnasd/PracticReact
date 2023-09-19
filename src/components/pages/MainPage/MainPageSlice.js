@@ -1,6 +1,7 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import useCharService from '../../../services/CharsServices'
 
+
 const initialState = {
     charactersList: [],
     charLoadingStatus: 'idle',

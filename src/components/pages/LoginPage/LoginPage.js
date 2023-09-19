@@ -1,29 +1,31 @@
-import Form from '../../Form/Form'
 import './LoginPage.scss'
+import Form from '../../Form/Form'
 import { motion } from 'framer-motion'
-import { useLoginQuery } from '../../../apiFirebase/apiFireBaseSlice'
-import { useState } from 'react'
-import { userLogIn } from '../../header/AppHeaderSlice'
-import { useDispatch  } from 'react-redux'
 import { useNavigate } from 'react-router-dom'
+import { useDispatch, useSelector } from 'react-redux'
+import { useLazyLoginQuery } from '../../../apiFirebase/apiFireBaseSlice'
+import { userLogin } from './LoginPageSlice'
 
 
 const LoginPage = () => {
-    const [email, setEmail] = useState('')
-    const [pass, setPass] = useState('')
-    const dispatch = useDispatch()
+    const email  = useSelector(state=>state.form.userEmail)
+    const pass  = useSelector(state=>state.form.userPass)
     const navigate = useNavigate()
+    const dispatch = useDispatch()
+    const [trigger] = useLazyLoginQuery()
 
-    useLoginQuery({email,pass},{
-        skip: true
-    })
-    const onHandleSubmit = (args)=>{
-        setEmail(args.email);
-        setPass(args.pass)
-        dispatch(userLogIn())
-        navigate('/')
+    const onHandleSubmit = ()=>{
+        const data = trigger({email,pass})
+            data
+                .then((res)=>{
+                    if(res.data === 'ok'){
+                        dispatch(userLogin())
+                        navigate('/')
+                    }
+                })
+        
     }
-
+    
     return (
         <motion.div className='login'
             initial={{ opacity: 0, transition: { duration: 0.1 } }}
