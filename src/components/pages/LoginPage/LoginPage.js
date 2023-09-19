@@ -1,36 +1,37 @@
-import { motion } from 'framer-motion'
 import './LoginPage.scss'
+import Form from '../../Form/Form'
+import { motion } from 'framer-motion'
+import { useNavigate } from 'react-router-dom'
+import { useDispatch, useSelector } from 'react-redux'
+import { useLazyLoginQuery } from '../../../apiFirebase/apiFireBaseSlice'
+import { userLogin } from './LoginPageSlice'
+
 
 const LoginPage = () => {
+    const email = useSelector(state => state.form.userEmail)
+    const pass = useSelector(state => state.form.userPass)
+    const navigate = useNavigate()
+    const dispatch = useDispatch()
+    const [trigger] = useLazyLoginQuery()
+
+    const onHandleSubmit = () => {
+        const data = trigger({ email, pass })
+        data
+            .then((res) => {
+                if (res.data === 'ok') {
+                    dispatch(userLogin())
+                    navigate('/')
+                }
+            })
+    }
+
     return (
         <motion.div className='login'
             initial={{ opacity: 0, transition: { duration: 0.1 } }}
             animate={{ opacity: 1, transition: { duration: 0.3 } }}
             exit={{ opacity: 0, transition: { duration: 0.1 } }}
         >
-            <div className='login__text'>Войти</div>
-            <div className='login__block'>
-                <input
-                    className='login__block-input'
-                    type="email"
-                    // value={email}
-                    // onChange={(e) => setEmail(e.target.value)}
-                    placeholder="email"
-                />
-                <input
-                    className='login__block-input'
-                    type="password"
-                    // value={pass}
-                    // onChange={(e) => setPass(e.target.value)}
-                    placeholder="password"
-                />
-                <button
-                    className='login__block-button'
-                // onClick={() => handleClick(email, pass)}
-                >
-                    Войти
-                </button>
-            </div>
+            <Form title="Войти" onHandleSubmit={onHandleSubmit} />
         </motion.div>
     )
 }
