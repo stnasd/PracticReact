@@ -1,8 +1,23 @@
 import PropTypes from 'prop-types'
 import { Link } from 'react-router-dom'
 
-const CharsList = (props) => {
-    const renderItems = (arr) => {
+const CharsList = ({ charactersList, userAuthorized }) => {
+
+    const renderItems = (arr, userLogin) => {
+        const renderButtons = (userLogin) => {
+            if (userLogin === true) {
+                return (
+                    <>
+                        <button className='button__char-add'>add</button>
+                        <button className='button__char-delete'>x</button>
+                    </>
+                )
+            } else {
+                return null
+            }
+        }
+
+        const buttons = renderButtons(userLogin)
         return arr.map(item => {
             const { image, name, id, origin } = item
             return (
@@ -14,13 +29,14 @@ const CharsList = (props) => {
                     <img src={`${image}`} alt={name} />
                     <div className="char__name">name : {name}</div>
                     <div className="char__item-playedby">Origin : {origin}</div>
+                    {buttons}
                     <Link to="/info"><button className='char__info-button'>Больше информации</button></Link>
                 </div>
             )
         })
     }
 
-    const charElements = renderItems(props.charactersList)
+    const charElements = renderItems(charactersList, userAuthorized)
     return (
         <>
             {charElements}

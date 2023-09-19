@@ -2,27 +2,25 @@ import './LoginPage.scss'
 import Form from '../../Form/Form'
 import { motion } from 'framer-motion'
 import { useNavigate } from 'react-router-dom'
-import { useDispatch, useSelector } from 'react-redux'
+import { useDispatch } from 'react-redux'
 import { useLazyLoginQuery } from '../../../apiFirebase/apiFireBaseSlice'
 import { userLogin } from './LoginPageSlice'
 
 
 const LoginPage = () => {
-    const email = useSelector(state => state.form.userEmail)
-    const pass = useSelector(state => state.form.userPass)
     const navigate = useNavigate()
     const dispatch = useDispatch()
     const [trigger] = useLazyLoginQuery()
 
-    const onHandleSubmit = () => {
-        const data = trigger({ email, pass })
-        data
-            .then((res) => {
-                if (res.data === 'ok') {
-                    dispatch(userLogin())
-                    navigate('/')
-                }
-            })
+    const onHandleSubmit = (args) => {
+        const data = trigger(args)
+        console.log(data)
+        data.then((res) => {
+            if (res.data === 'ok') {
+                dispatch(userLogin())
+                navigate('/')
+            }
+        })
     }
 
     return (
