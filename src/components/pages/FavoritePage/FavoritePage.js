@@ -2,8 +2,18 @@ import './FavoritePage.scss'
 import { Link } from 'react-router-dom'
 import { motion } from 'framer-motion'
 import inkognito from '../../../images/inkognito.jpg'
+import { useSelector } from 'react-redux';
+import { useNavigate } from "react-router-dom";
+import { useEffect } from 'react';
 
 const FavoritePage = () => {
+    const userAuthorized = useSelector(state => state.login.userLogIn)
+    const navigate = useNavigate()
+    useEffect(() => {
+        if (userAuthorized === false) {
+            navigate('/signup')
+        }
+    })
     return (
         <motion.div
             className="app__favorite"

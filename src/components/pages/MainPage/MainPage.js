@@ -1,9 +1,8 @@
 import CharsList from '../../CharsList/CharsList';
 import SearchItem from '../../SearchItem/SearchItem';
 import Spinner from '../../Spinner/Spinner';
-
+import ErrorBoundary from '../../ErrorBoundary/ErrorBoundary';
 import './MainPage.scss'
-
 import { motion } from 'framer-motion'
 import { useDispatch, useSelector } from 'react-redux';
 import { useEffect } from "react";
@@ -41,8 +40,11 @@ const MainPage = () => {
             exit={{ opacity: 0, transition: { duration: 0.1 } }}
         >
             <>
+
                 <div className="app__main-grid">
-                    <CharsList charactersList={charscaractersList} />
+                    <ErrorBoundary>
+                        <CharsList charactersList={charscaractersList} />
+                    </ErrorBoundary>
                 </div>
                 <SearchItem />
             </>
