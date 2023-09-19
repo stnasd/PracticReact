@@ -6,6 +6,7 @@ const CharsList = ({ charactersList, userAuthorized }) => {
     const renderItems = (arr, userLogin) => {
 
         return arr.map(item => {
+            const { image, name, id, origin } = item
             const renderButtons = (userLogin) => {
                 if (userLogin === true) {
                     return (
@@ -20,7 +21,6 @@ const CharsList = ({ charactersList, userAuthorized }) => {
             }
 
             const buttons = renderButtons(userLogin)
-            const { image, name, id, origin } = item
             return (
                 <div
                     className="char__item"
@@ -31,7 +31,7 @@ const CharsList = ({ charactersList, userAuthorized }) => {
                     <div className="char__name">name : {name}</div>
                     <div className="char__item-playedby">Origin : {origin}</div>
                     {buttons}
-                    <Link to="/info"><button>Больше информации</button></Link>
+                    <Link to="/info"><button className='char__info-button'>Больше информации</button></Link>
                 </div>
             )
         })

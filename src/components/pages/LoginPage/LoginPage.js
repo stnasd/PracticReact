@@ -1,11 +1,11 @@
 import './LoginPage.scss'
 import Form from '../../Form/Form'
 import { motion } from 'framer-motion'
+import './LoginPage.scss'
 import { useNavigate } from 'react-router-dom'
 import { useDispatch } from 'react-redux'
 import { useLazyLoginQuery } from '../../../apiFirebase/apiFireBaseSlice'
 import { userLogin } from './LoginPageSlice'
-
 
 const LoginPage = () => {
     const navigate = useNavigate()
