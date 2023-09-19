@@ -6,11 +6,10 @@ import { useNavigate } from 'react-router-dom';
 
 const SignupPage = () => {
     const [createUser,] = useSignupMutation()
-    // const navigate = useNavigate()
+    const navigate = useNavigate()
     const onHandleSubmit = (args) => {
-        // createUser(args)
-        console.log('dadasdasdasd')
-        // navigate('/login')
+        createUser(args)
+        navigate('/login')
     }
 
     return (
