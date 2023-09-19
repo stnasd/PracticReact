@@ -11,7 +11,7 @@ export const apiFireBaseSlice = createApi({
             async queryFn(args) {
                 try {
                     const auth = getAuth()
-                    await signInWithEmailAndPassword(auth,args.email,args.pass)
+                    await signInWithEmailAndPassword(auth, args.email, args.pass)
                     return {
                         data: 'ok'
                     }

@@ -1,4 +1,4 @@
-import { createSlice} from "@reduxjs/toolkit";
+import { createSlice } from "@reduxjs/toolkit";
 
 const initialState = {
     userEmail: '',
@@ -9,7 +9,7 @@ const FormSlice = createSlice({
     name: 'form',
     initialState,
     reducers: {
-        changeUserEmail: (state,action) => {
+        changeUserEmail: (state, action) => {
             state.userEmail = action.payload;
         },
         changeUserPass: (state, action) => {

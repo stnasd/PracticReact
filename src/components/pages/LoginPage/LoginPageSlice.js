@@ -1,7 +1,7 @@
-import { createSlice} from "@reduxjs/toolkit";
+import { createSlice } from "@reduxjs/toolkit";
 
 const initialState = {
-    userLogIn : false,
+    userLogIn: false,
 }
 
 const LoginPageSlice = createSlice({

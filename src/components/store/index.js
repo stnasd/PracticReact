@@ -5,7 +5,7 @@ import form from '../Form/FormSlice'
 import { apiFireBaseSlice } from '../../apiFirebase/apiFireBaseSlice';
 
 const store = configureStore({
-    reducer: { characters, login,form,[apiFireBaseSlice.reducerPath]: apiFireBaseSlice.reducer },
+    reducer: { characters, login, form, [apiFireBaseSlice.reducerPath]: apiFireBaseSlice.reducer },
     middleware: getDefaultMidleWare => getDefaultMidleWare().concat(apiFireBaseSlice.middleware),
     devTools: process.env.NODE_ENV !== 'production'
 })
