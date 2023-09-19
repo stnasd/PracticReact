@@ -98,13 +98,4 @@ h6 {
   font-size: 15px;
   font-weight: 900;
 }
-.char__button-info {
-  height: 25px;
-  border-radius: 5px;
-  font-weight: 800;
-  border: 1px solid #000;
-  box-shadow: 1px 1px 5px #000;
-  position: absolute;
-  bottom: 6px;
-  right: 25px;
-}
+

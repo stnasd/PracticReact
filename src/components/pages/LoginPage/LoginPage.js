@@ -14,7 +14,6 @@ const LoginPage = () => {
 
     const onHandleSubmit = (args) => {
         const data = trigger(args)
-        console.log(data)
         data.then((res) => {
             if (res.data === 'ok') {
                 dispatch(userLogin())
