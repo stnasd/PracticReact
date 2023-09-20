@@ -49,4 +49,8 @@ CharsList.propTypes = {
     props: PropTypes.object
 }
 
+CharsList.propTypes = {
+    props: PropTypes.object
+}
+
 export default CharsList;
