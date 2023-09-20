@@ -17,8 +17,8 @@ const CharInfo = () => {
                 </div>
             </div>
             <div className="char__info-favorite">
-                <button>Добаваить в избранное </button>
-                <button>Удалить из избранного </button>
+                <button className='button__favorite'>Добаваить в избранное </button>
+                <button className='button__favorite'>Удалить из избранного </button>
             </div>
         </div>
     )

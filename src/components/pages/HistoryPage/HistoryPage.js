@@ -1,7 +1,18 @@
 import './HistoryPage.scss'
 import { motion } from 'framer-motion'
+import { useEffect } from 'react';
+import { useSelector } from 'react-redux';
+import { useNavigate } from "react-router-dom";
+
 
 const HistoryPage = () => {
+    const userAuthorized = useSelector(state => state.login.userLogIn)
+    const navigate = useNavigate()
+    useEffect(() => {
+        if (userAuthorized === false) {
+            navigate('/signup')
+        }
+    }, [userAuthorized, navigate])
     return (
         <motion.div className="app__history"
             initial={{ opacity: 0, transition: { duration: 0.1 } }}

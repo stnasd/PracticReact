@@ -1,10 +1,19 @@
 import CharInfo from "../../CharInfo/CharInfo";
 import SearchItem from "../../SearchItem/SearchItem";
 import { motion } from 'framer-motion'
-
+import { useNavigate } from "react-router-dom";
 import './CharInfoBlock.scss'
+import { useSelector } from 'react-redux';
+import { useEffect } from "react";
 
 const CharInfoBlock = () => {
+    const userAuthorized = useSelector(state => state.login.userLogIn)
+    const navigate = useNavigate()
+    useEffect(() => {
+        if (userAuthorized === false) {
+            navigate('/signup')
+        }
+    }, [userAuthorized, navigate])
     return (
         <motion.div
             className="char__block"

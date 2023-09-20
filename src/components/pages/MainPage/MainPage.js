@@ -1,21 +1,22 @@
 import CharsList from '../../CharsList/CharsList';
 import SearchItem from '../../SearchItem/SearchItem';
 import Spinner from '../../Spinner/Spinner';
-
+import ErrorBoundary from '../../ErrorBoundary/ErrorBoundary';
 import './MainPage.scss'
-
 import { motion } from 'framer-motion'
 import { useDispatch, useSelector } from 'react-redux';
 import { useEffect } from "react";
 import { fetchCharacters, addCharactersPage, addCharactersItems } from './MainPageSlice';
 import useCharService from '../../../services/CharsServices';
 
+
 const MainPage = () => {
     const dispatch = useDispatch()
     const { getAllCharacters } = useCharService()
     const loadingStatus = useSelector(state => state.characters.charLoadingStatus)
-    const charscaractersList = useSelector(state => state.characters.charactersList)
+    const charactersList = useSelector(state => state.characters.charactersList)
     const charsPage = useSelector(state => state.characters.page)
+    const userAuthorized = useSelector(state => state.login.userLogIn)
 
     useEffect(() => {
         dispatch(fetchCharacters())
@@ -41,8 +42,11 @@ const MainPage = () => {
             exit={{ opacity: 0, transition: { duration: 0.1 } }}
         >
             <>
+
                 <div className="app__main-grid">
-                    <CharsList charactersList={charscaractersList} />
+                    <ErrorBoundary>
+                        <CharsList charactersList={charactersList} userAuthorized={userAuthorized} />
+                    </ErrorBoundary>
                 </div>
                 <SearchItem />
             </>

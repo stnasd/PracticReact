@@ -1,30 +1,51 @@
 import PropTypes from 'prop-types'
-import { useDispatch, } from 'react-redux';
-import { changeUserEmail, changeUserPass } from './FormSlice'
-import { useSelector } from 'react-redux'
+import { Formik, Form as Forma, Field, ErrorMessage as FormikErrorMessage } from 'formik';
+import * as Yup from 'yup'
 
 const Form = ({ title, onHandleSubmit }) => {
-    const dispatch = useDispatch()
-    const email = useSelector(state => state.form.userEmail)
-    const pass = useSelector(state => state.form.userPass)
+
     return (
         <div className='signup__block'>
-            <input
-                type='text'
-                placeholder="Enter email"
-                className='block-input'
-                onChange={e => dispatch(changeUserEmail(e.target.value))} />
-            <input
-                type='password'
-                placeholder="Enter password"
-                className='block-input'
-                onChange={e => dispatch(changeUserPass(e.target.value))} />
-            <button
-                className='login__block-button'
-                onClick={() => onHandleSubmit({ email, pass })}
+            <Formik
+                initialValues={{
+                    email: '',
+                    pass: ''
+                }}
+                validationSchema={Yup.object({
+                    pass: Yup.string()
+                        .min(6, 'Минимум 6 символа')
+                        .max(15, 'Максимум 15 симфолов')
+                        .required('Password: обязательное поле!'),
+                    email: Yup.string()
+                        .email('Не правильный email адрес')
+                        .required('Email: Обязательное поле!'),
+                })}
+                onSubmit={({ email, pass }) => {
+                    onHandleSubmit({ email, pass })
+                }}
             >
-                {title}
-            </button>
+                <Forma>
+                    <Field
+                        id="email"
+                        name='email'
+                        type='text'
+                        placeholder="Enter name"
+                        className="block-input" />
+                    <Field
+                        id="pass"
+                        name='pass'
+                        type='password'
+                        placeholder="Enter name"
+                        className="block-input" />
+                    <button
+                        type='submit'
+                        className="login__block-button">
+                        <div >{title}</div>
+                    </button>
+                    <FormikErrorMessage component="div" className="user__search-error" name="email" />
+                    <FormikErrorMessage component="div" className="user__search-error" name="pass" />
+                </Forma>
+            </Formik>
         </div>
     )
 }
