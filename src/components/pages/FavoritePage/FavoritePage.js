@@ -13,7 +13,7 @@ const FavoritePage = () => {
         if (userAuthorized === false) {
             navigate('/signup')
         }
-    })
+    }, [userAuthorized, navigate])
     return (
         <motion.div
             className="app__favorite"

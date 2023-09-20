@@ -1,6 +1,4 @@
-import './LoginPage.scss'
 import Form from '../../Form/Form'
-import './LoginPage.scss'
 import { motion } from 'framer-motion'
 import './LoginPage.scss'
 import { useNavigate } from 'react-router-dom'

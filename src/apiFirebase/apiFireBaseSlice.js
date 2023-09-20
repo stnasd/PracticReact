@@ -20,7 +20,6 @@ export const apiFireBaseSlice = createApi({
                     return { data: 'error' }
                 }
             },
-            providesTags: ["User"],
         }),
         signup: builder.mutation({
             async queryFn(args) {
@@ -34,7 +33,6 @@ export const apiFireBaseSlice = createApi({
                     return { data: 'error' }
                 }
             },
-            providesTags: ["User"],
         })
     })
 })

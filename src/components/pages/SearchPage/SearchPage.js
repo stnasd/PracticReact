@@ -14,7 +14,7 @@ const SearchPage = () => {
         if (userAuthorized === false) {
             navigate('/signup')
         }
-    })
+    }, [userAuthorized, navigate])
     return (
         <motion.div className="app__search"
             initial={{ opacity: 0, transition: { duration: 0.1 } }}

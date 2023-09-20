@@ -12,7 +12,7 @@ const HistoryPage = () => {
         if (userAuthorized === false) {
             navigate('/signup')
         }
-    })
+    }, [userAuthorized, navigate])
     return (
         <motion.div className="app__history"
             initial={{ opacity: 0, transition: { duration: 0.1 } }}

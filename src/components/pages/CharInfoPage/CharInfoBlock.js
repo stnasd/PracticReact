@@ -13,7 +13,7 @@ const CharInfoBlock = () => {
         if (userAuthorized === false) {
             navigate('/signup')
         }
-    })
+    }, [userAuthorized, navigate])
     return (
         <motion.div
             className="char__block"
