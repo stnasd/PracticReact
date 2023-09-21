@@ -1,6 +1,7 @@
 import Form from '../../Form/Form'
 import { motion } from 'framer-motion'
 import './LoginPage.scss'
+import './LoginPage.scss'
 import { useNavigate } from 'react-router-dom'
 import { useDispatch, } from 'react-redux'
 import { useLazyLoginQuery, useGetOnlineUserQuery } from '../../../apiFirebase/apiFireBaseSlice'
