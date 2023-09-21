@@ -2,10 +2,19 @@ import './AppHeader.scss'
 import google from '../../images/google.png'
 import { Link } from 'react-router-dom'
 import { useSelector } from 'react-redux';
+import { useLogOutUserMutation } from '../../apiFirebase/apiFireBaseSlice';
+import { userLogout } from '../pages/LoginPage/LoginPageSlice';
+import { useDispatch } from 'react-redux';
+
 
 const AppHeader = () => {
+    const dispatch = useDispatch()
+    const [onLogOutUser,] = useLogOutUserMutation()
+    const onLogout = () => {
+        onLogOutUser()
+        dispatch(userLogout())
+    }
     const userAuthorized = useSelector(state => state.login.userLogIn)
-
     const header = userAuthorized ?
         <header className='app__header'>
             <nav className='app__header-nav'>
@@ -13,7 +22,7 @@ const AppHeader = () => {
                 <div className='app__header-buttons'>
                     <Link to="/favorite"><button >Избранное</button></Link>
                     <Link to="/history"><button>История</button></Link>
-                    <Link to="/"><button>Выйти</button></Link>
+                    <Link to="/"><button onClick={() => onLogout()}>Выйти</button></Link>
                 </div>
             </nav>
         </header> :

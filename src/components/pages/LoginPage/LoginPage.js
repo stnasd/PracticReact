@@ -2,24 +2,31 @@ import Form from '../../Form/Form'
 import { motion } from 'framer-motion'
 import './LoginPage.scss'
 import { useNavigate } from 'react-router-dom'
-import { useDispatch } from 'react-redux'
-import { useLazyLoginQuery } from '../../../apiFirebase/apiFireBaseSlice'
-import { userLogin } from './LoginPageSlice'
+import { useDispatch, } from 'react-redux'
+import { useLazyLoginQuery, useGetOnlineUserQuery } from '../../../apiFirebase/apiFireBaseSlice'
+import { userLogin, userEmail } from './LoginPageSlice'
+import { useEffect } from 'react'
 
 const LoginPage = () => {
+    const { data } = useGetOnlineUserQuery()
+
     const navigate = useNavigate()
     const dispatch = useDispatch()
-    const [trigger] = useLazyLoginQuery()
+    useEffect(() => {
+        if (data && data.online) {
+            dispatch(userLogin())
+            dispatch(userEmail(data.email))
+            navigate('/')
+        }
+    })
+
+
+    const [triggerLoginUser] = useLazyLoginQuery()
 
     const onHandleSubmit = (args) => {
-        const data = trigger(args)
-        data.then((res) => {
-            if (res.data === 'ok') {
-                dispatch(userLogin())
-                navigate('/')
-            }
-        })
+        triggerLoginUser(args)
     }
+
 
     return (
         <motion.div className='login'

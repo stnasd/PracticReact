@@ -2,6 +2,8 @@ import { createSlice } from "@reduxjs/toolkit";
 
 const initialState = {
     userLogIn: false,
+    userEmail: '',
+    userLoadingStatus: ''
 }
 
 const LoginPageSlice = createSlice({
@@ -13,6 +15,9 @@ const LoginPageSlice = createSlice({
         },
         userLogout: (state) => {
             state.userLogIn = false;
+        },
+        userEmail: (state, actionEmail) => {
+            state.userEmail = actionEmail
         }
     },
 });
@@ -21,6 +26,7 @@ const { actions, reducer } = LoginPageSlice;
 
 export const {
     userLogin,
-    userLogout
+    userLogout,
+    userEmail
 } = actions;
 export default reducer;
