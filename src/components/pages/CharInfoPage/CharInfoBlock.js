@@ -6,14 +6,16 @@ import './CharInfoBlock.scss'
 import { useSelector } from 'react-redux';
 import { useEffect } from "react";
 
+
 const CharInfoBlock = () => {
-    const userAuthorized = useSelector(state => state.login.userLogIn)
     const navigate = useNavigate()
+    const userOnline = useSelector(state => state.login.userOnline)
     useEffect(() => {
-        if (userAuthorized === false) {
-            navigate('/signup')
+        if (!userOnline) {
+            navigate('/')
         }
-    }, [userAuthorized, navigate])
+    }, [userOnline, navigate])
+
     return (
         <motion.div
             className="char__block"

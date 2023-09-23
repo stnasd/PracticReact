@@ -1,26 +1,30 @@
 import { createSlice } from "@reduxjs/toolkit";
 
+
 const initialState = {
-    userLogIn: false,
+    userEmail: '',
+    userOnline: ''
 }
 
 const LoginPageSlice = createSlice({
     name: 'login',
     initialState,
     reducers: {
-        userLogin: (state) => {
-            state.userLogIn = true;
+        useronline: (state, actionUser) => {
+            if (actionUser.payload !== 'offline') {
+                state.userOnline = true
+                state.userEmail = actionUser.payload
+            } else if (actionUser.payload === 'offline') {
+                state.userOnline = false
+                state.userEmail = ''
+            }
         },
-        userLogout: (state) => {
-            state.userLogIn = false;
-        }
     },
 });
 
 const { actions, reducer } = LoginPageSlice;
 
 export const {
-    userLogin,
-    userLogout
+    useronline
 } = actions;
 export default reducer;

@@ -9,14 +9,13 @@ import { useEffect } from "react";
 import { fetchCharacters, addCharactersPage, addCharactersItems } from './MainPageSlice';
 import useCharService from '../../../services/CharsServices';
 
-
 const MainPage = () => {
     const dispatch = useDispatch()
     const { getAllCharacters } = useCharService()
     const loadingStatus = useSelector(state => state.characters.charLoadingStatus)
     const charactersList = useSelector(state => state.characters.charactersList)
     const charsPage = useSelector(state => state.characters.page)
-    const userAuthorized = useSelector(state => state.login.userLogIn)
+    const userAuthorized = useSelector(state => state.login.userOnline)
 
     useEffect(() => {
         dispatch(fetchCharacters())

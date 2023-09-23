@@ -3,18 +3,21 @@ import { Link } from "react-router-dom";
 import './SearchPage.scss'
 import { motion } from 'framer-motion'
 import inkognito from '../../../images/inkognito.jpg'
-import { useSelector } from 'react-redux';
 import { useNavigate } from "react-router-dom";
 import { useEffect } from 'react';
+import { useSelector } from 'react-redux';
+
 
 const SearchPage = () => {
-    const userAuthorized = useSelector(state => state.login.userLogIn)
     const navigate = useNavigate()
+    const userOnline = useSelector(state => state.login.userOnline)
+
     useEffect(() => {
-        if (userAuthorized === false) {
-            navigate('/signup')
+        if (!userOnline) {
+            navigate('/')
         }
-    }, [userAuthorized, navigate])
+    }, [userOnline, navigate])
+
     return (
         <motion.div className="app__search"
             initial={{ opacity: 0, transition: { duration: 0.1 } }}
