@@ -10,6 +10,10 @@ const useCharService = () => {
         const res = await request(`${_apiBase}/?page=${page}`)
         return res.results.map(_transformCharacter)
     }
+    const getCharacter = async (id) => {
+        const res = await request(`${_apiBase}/${id}`)
+        return _transformCharacter(res)
+    }
 
     const _transformCharacter = (char) => {
         return {
@@ -25,7 +29,8 @@ const useCharService = () => {
     }
 
     return {
-        getAllCharacters
+        getAllCharacters,
+        getCharacter
     }
 }
 
