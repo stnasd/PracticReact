@@ -2,18 +2,28 @@ import './FavoritePage.scss'
 import { Link } from 'react-router-dom'
 import { motion } from 'framer-motion'
 import inkognito from '../../../images/inkognito.jpg'
-import { useSelector } from 'react-redux';
 import { useNavigate } from "react-router-dom";
 import { useEffect } from 'react';
+import { onAuthStateChanged, getAuth } from 'firebase/auth'
+import { useronline } from "../LoginPage/LoginPageSlice";
+import { useDispatch } from 'react-redux';
 
 const FavoritePage = () => {
-    const userAuthorized = useSelector(state => state.login.userLogIn)
     const navigate = useNavigate()
+    const dispatch = useDispatch()
+
     useEffect(() => {
-        if (userAuthorized === false) {
-            navigate('/signup')
-        }
-    }, [userAuthorized, navigate])
+        const auth = getAuth()
+        onAuthStateChanged(auth, (user) => {
+            if (user !== null && user) {
+                dispatch(useronline(user.email))
+            } else {
+                dispatch(useronline('offline'))
+            }
+        })
+    }, [dispatch, navigate])
+
+
     return (
         <motion.div
             className="app__favorite"

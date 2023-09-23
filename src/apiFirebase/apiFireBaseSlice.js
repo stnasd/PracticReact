@@ -1,54 +1,31 @@
 import { createApi, fakeBaseQuery } from "@reduxjs/toolkit/query/react";
 import { getAuth } from "firebase/auth";
-import { createUserWithEmailAndPassword, signInWithEmailAndPassword } from 'firebase/auth';
+import { createUserWithEmailAndPassword, signInWithEmailAndPassword, signOut } from 'firebase/auth';
 import { db } from "../firebase";
-import { doc, setDoc, onSnapshot } from "firebase/firestore";
+import { doc, setDoc } from "firebase/firestore";
 
 export const apiFireBaseSlice = createApi({
     reducerPath: "api",
     baseQuery: fakeBaseQuery(),
     tagTypes: ["User"],
     endpoints: (builder) => ({
-        logOutUser: builder.mutation({
+        signout: builder.mutation({
             async queryFn() {
                 try {
-                    setDoc(doc(db, "userOnline", "user"), {
-                        email: '',
-                        online: false,
-                    })
-                    return { data: 'ok' }
+                    const auth = getAuth();
+                    signOut(auth)
+                    return { curentdata: 'ok' }
                 } catch (error) {
-                    return { data: 'error' }
+                    return { curentdata: 'error' }
                 }
             },
             invalidatesTags: ['User']
-        }),
-        getOnlineUser: builder.query({
-            async queryFn() {
-                try {
-                    return {
-                        data: new Promise((resolve, reject) => {
-                            onSnapshot(doc(db, "userOnline", "user"), (doc) => {
-                                console.log("Current data: ", doc.data());
-                                resolve(doc.data())
-                            });
-                        })
-                    }
-                } catch (error) {
-                    return { data: 'error' }
-                }
-            },
-            providesTags: ['User']
         }),
         login: builder.query({
             async queryFn(args) {
                 try {
                     const auth = getAuth()
                     await signInWithEmailAndPassword(auth, args.email, args.pass)
-                    setDoc(doc(db, "userOnline", "user"), {
-                        email: args.email,
-                        online: true,
-                    })
                     return {
                         data: 'ok'
                     }
@@ -83,8 +60,7 @@ export const apiFireBaseSlice = createApi({
 })
 
 export const {
-    useLogOutUserMutation,
-    useGetOnlineUserQuery,
+    useSignoutMutation,
     useSignupMutation,
     useLazyLoginQuery,
 } = apiFireBaseSlice;

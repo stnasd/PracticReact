@@ -1,31 +1,37 @@
 import Form from '../../Form/Form'
 import { motion } from 'framer-motion'
 import './LoginPage.scss'
-import './LoginPage.scss'
 import { useNavigate } from 'react-router-dom'
 import { useDispatch, } from 'react-redux'
-import { useLazyLoginQuery, useGetOnlineUserQuery } from '../../../apiFirebase/apiFireBaseSlice'
-import { userLogin, userEmail } from './LoginPageSlice'
+import { useLazyLoginQuery } from '../../../apiFirebase/apiFireBaseSlice'
 import { useEffect } from 'react'
+import { onAuthStateChanged, getAuth } from 'firebase/auth'
+import { useronline } from './LoginPageSlice'
+
 
 const LoginPage = () => {
-    const { data } = useGetOnlineUserQuery()
-
     const navigate = useNavigate()
     const dispatch = useDispatch()
-    useEffect(() => {
-        if (data && data.online) {
-            dispatch(userLogin())
-            dispatch(userEmail(data.email))
-            navigate('/')
-        }
-    })
-
-
     const [triggerLoginUser] = useLazyLoginQuery()
+
+    useEffect(() => {
+        const auth = getAuth()
+        onAuthStateChanged(auth, (user) => {
+            if (user !== null && user) {
+                dispatch(useronline(user.email))
+            } else {
+                dispatch(useronline('offline'))
+            }
+        })
+    }, [dispatch])
 
     const onHandleSubmit = (args) => {
         triggerLoginUser(args)
+            .then(res => {
+                if (res.data === 'ok') {
+                    navigate('/')
+                }
+            })
     }
 
 

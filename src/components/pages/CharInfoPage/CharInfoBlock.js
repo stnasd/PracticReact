@@ -3,17 +3,26 @@ import SearchItem from "../../SearchItem/SearchItem";
 import { motion } from 'framer-motion'
 import { useNavigate } from "react-router-dom";
 import './CharInfoBlock.scss'
-import { useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import { useEffect } from "react";
+import { onAuthStateChanged, getAuth } from 'firebase/auth'
+import { useronline } from "../LoginPage/LoginPageSlice";
 
 const CharInfoBlock = () => {
-    const userAuthorized = useSelector(state => state.login.userLogIn)
     const navigate = useNavigate()
+    const dispatch = useDispatch()
+
     useEffect(() => {
-        if (userAuthorized === false) {
-            navigate('/signup')
-        }
-    }, [userAuthorized, navigate])
+        const auth = getAuth()
+        onAuthStateChanged(auth, (user) => {
+            if (user !== null && user) {
+                dispatch(useronline(user.email))
+            } else {
+                dispatch(useronline('offline'))
+            }
+        })
+    }, [dispatch, navigate])
+
     return (
         <motion.div
             className="char__block"
