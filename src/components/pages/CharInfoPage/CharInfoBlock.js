@@ -19,6 +19,7 @@ const CharInfoBlock = () => {
                 dispatch(useronline(user.email))
             } else {
                 dispatch(useronline('offline'))
+                navigate('/')
             }
         })
     }, [dispatch, navigate])
