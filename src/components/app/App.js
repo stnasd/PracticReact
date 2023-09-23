@@ -7,12 +7,9 @@ import { useDispatch } from 'react-redux';
 import { useEffect } from "react";
 import { onAuthStateChanged, getAuth } from 'firebase/auth'
 import { useronline } from '../pages/LoginPage/LoginPageSlice';
-import AnimatedRoutes from './AnimatedRoutes';
-import { useSignoutMutation } from '../../apiFirebase/apiFireBaseSlice';
-
+import AnimatedRoutes from './AnimatedRoutes'
 
 function App() {
-  const [onUserSignOut,] = useSignoutMutation()
   const dispatch = useDispatch()
   useEffect(() => {
     const auth = getAuth()
