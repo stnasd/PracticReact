@@ -8,9 +8,6 @@ import { useDispatch, useSelector } from 'react-redux';
 import { useEffect } from "react";
 import { fetchCharacters, addCharactersPage, addCharactersItems } from './MainPageSlice';
 import useCharService from '../../../services/CharsServices';
-import { useronline } from '../LoginPage/LoginPageSlice';
-import { onAuthStateChanged, getAuth } from 'firebase/auth'
-
 
 const MainPage = () => {
     const dispatch = useDispatch()
@@ -19,17 +16,6 @@ const MainPage = () => {
     const charactersList = useSelector(state => state.characters.charactersList)
     const charsPage = useSelector(state => state.characters.page)
     const userAuthorized = useSelector(state => state.login.userOnline)
-
-    useEffect(() => {
-        const auth = getAuth()
-        onAuthStateChanged(auth, (user) => {
-            if (user !== null && user) {
-                dispatch(useronline(user.email))
-            } else {
-                dispatch(useronline('offline'))
-            }
-        })
-    }, [dispatch])
 
     useEffect(() => {
         dispatch(fetchCharacters())

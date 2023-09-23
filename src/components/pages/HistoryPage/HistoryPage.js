@@ -1,26 +1,19 @@
 import './HistoryPage.scss'
 import { motion } from 'framer-motion'
-import { useEffect } from 'react';
-import { onAuthStateChanged, getAuth } from 'firebase/auth'
-import { useronline } from "../LoginPage/LoginPageSlice";
 import { useNavigate } from 'react-router-dom';
-import { useDispatch } from 'react-redux';
+import { useSelector } from 'react-redux';
+import { useEffect } from 'react';
+
 
 const HistoryPage = () => {
-    const dispatch = useDispatch()
     const navigate = useNavigate()
+    const userOnline = useSelector(state => state.login.userOnline)
 
     useEffect(() => {
-        const auth = getAuth()
-        onAuthStateChanged(auth, (user) => {
-            if (user !== null && user) {
-                dispatch(useronline(user.email))
-            } else {
-                dispatch(useronline('offline'))
-                navigate('/')
-            }
-        })
-    }, [dispatch, navigate])
+        if (!userOnline) {
+            navigate('/')
+        }
+    }, [userOnline, navigate])
 
     return (
         <motion.div className="app__history"

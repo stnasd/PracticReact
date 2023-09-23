@@ -1,13 +1,31 @@
 import { BrowserRouter as Router } from 'react-router-dom'
 import { Suspense } from 'react';
-
 import './App.css';
 import AppHeader from '../header/AppHeader';
 import Spinner from '../Spinner/Spinner';
-
+import { useDispatch } from 'react-redux';
+import { useEffect } from "react";
+import { onAuthStateChanged, getAuth } from 'firebase/auth'
+import { useronline } from '../pages/LoginPage/LoginPageSlice';
 import AnimatedRoutes from './AnimatedRoutes';
 
+
 function App() {
+  const dispatch = useDispatch()
+  useEffect(() => {
+    const auth = getAuth()
+    onAuthStateChanged(auth, (user) => {
+      if (user !== null && user) {
+        dispatch(useronline(user.email))
+      } else {
+        dispatch(useronline('offline'))
+      }
+    })
+    return () => {
+      onAuthStateChanged()
+    }
+  }, [dispatch])
+
   return (
     <Router>
       <div className='app'>
