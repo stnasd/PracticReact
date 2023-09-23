@@ -1,8 +1,11 @@
 import PropTypes from 'prop-types'
+import { useContext } from 'react'
 import { Link } from 'react-router-dom'
+import dataTextButtonsOnline from '../context/context'
 
 const CharsList = ({ charactersList, userAuthorized }) => {
-
+    const textButtonsContext = useContext(dataTextButtonsOnline)
+    const { add, deleted } = textButtonsContext
     const renderItems = (arr, userLogin) => {
 
         return arr.map(item => {
@@ -10,8 +13,8 @@ const CharsList = ({ charactersList, userAuthorized }) => {
             const renderButtons =
                 (
                     <>
-                        <button className='button__char-add'>add</button>
-                        <button className='button__char-delete'>x</button>
+                        <button className='button__char-add'>{add}</button>
+                        <button className='button__char-delete'>{deleted}</button>
                     </>
                 )
 
