@@ -6,16 +6,23 @@ import './MainPage.scss'
 import { motion } from 'framer-motion'
 import { useDispatch, useSelector } from 'react-redux';
 import { useEffect } from "react";
-import { fetchCharacters, addCharactersPage, addCharactersItems } from './MainPageSlice';
+import { fetchCharacters, fetchCharacter, addCharactersPage, addCharactersItems } from './MainPageSlice';
 import useCharService from '../../../services/CharsServices';
+import { useNavigate } from 'react-router-dom';
 
 const MainPage = () => {
     const dispatch = useDispatch()
+    const navigate = useNavigate()
     const { getAllCharacters } = useCharService()
-    const loadingStatus = useSelector(state => state.characters.charLoadingStatus)
+    const loadingStatus = useSelector(state => state.characters.charsLoadingStatus)
     const charactersList = useSelector(state => state.characters.charactersList)
     const charsPage = useSelector(state => state.characters.page)
     const userAuthorized = useSelector(state => state.login.userOnline)
+
+    const onChangeTargetCharacter = (e) => {
+        dispatch(fetchCharacter(e))
+        navigate('/info')
+    }
 
     useEffect(() => {
         dispatch(fetchCharacters())
@@ -44,7 +51,10 @@ const MainPage = () => {
 
                 <div className="app__main-grid">
                     <ErrorBoundary>
-                        <CharsList charactersList={charactersList} userAuthorized={userAuthorized} />
+                        <CharsList charactersList={charactersList}
+                            userAuthorized={userAuthorized}
+                            onChangeTargetCharacter={onChangeTargetCharacter}
+                        />
                     </ErrorBoundary>
                 </div>
                 <SearchItem />

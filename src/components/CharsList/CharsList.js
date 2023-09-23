@@ -1,9 +1,8 @@
 import PropTypes from 'prop-types'
 import { useContext } from 'react'
-import { Link } from 'react-router-dom'
 import dataTextButtonsOnline from '../context/context'
 
-const CharsList = ({ charactersList, userAuthorized }) => {
+const CharsList = ({ charactersList, userAuthorized, onChangeTargetCharacter }) => {
     const textButtonsContext = useContext(dataTextButtonsOnline)
     const { add, deleted } = textButtonsContext
     const renderItems = (arr, userLogin) => {
@@ -28,7 +27,9 @@ const CharsList = ({ charactersList, userAuthorized }) => {
                     <div className="char__name">name : {name}</div>
                     <div className="char__item-playedby">Origin : {origin}</div>
                     {userLogin ? renderButtons : null}
-                    <Link to="/info"><button className='char__info-button'>Больше информации</button></Link>
+                    <button className='char__info-button'
+                        onClick={() => onChangeTargetCharacter(id)}
+                    >Больше информации</button>
                 </div>
             )
         })
