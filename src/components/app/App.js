@@ -8,22 +8,22 @@ import { useEffect } from "react";
 import { onAuthStateChanged, getAuth } from 'firebase/auth'
 import { useronline } from '../pages/LoginPage/LoginPageSlice';
 import AnimatedRoutes from './AnimatedRoutes';
+import { useSignoutMutation } from '../../apiFirebase/apiFireBaseSlice';
 
 
 function App() {
+  const [onUserSignOut,] = useSignoutMutation()
   const dispatch = useDispatch()
   useEffect(() => {
     const auth = getAuth()
-    onAuthStateChanged(auth, (user) => {
+    const unsubscribe = onAuthStateChanged(auth, (user) => {
       if (user !== null && user) {
         dispatch(useronline(user.email))
       } else {
         dispatch(useronline('offline'))
       }
     })
-    return () => {
-      onAuthStateChanged()
-    }
+    return unsubscribe
   }, [dispatch])
 
   return (
