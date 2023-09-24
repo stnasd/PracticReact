@@ -3,8 +3,9 @@ import google from '../../images/google.png'
 import { Link } from 'react-router-dom'
 import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
-import { useronline } from '../pages/LoginPage/LoginPageSlice';
+import { useronline, userDropData } from '../pages/LoginPage/LoginPageSlice';
 import { useSignoutMutation } from '../../apiFirebase/apiFireBaseSlice';
+import SearchItem from '../SearchItem/SearchItem';
 
 
 const AppHeader = () => {
@@ -17,6 +18,7 @@ const AppHeader = () => {
     const onLogoutFn = () => {
         onUserSignOut()
         navigate('/')
+        dispatch(userDropData())
         dispatch(useronline('offline'))
     }
 
@@ -24,6 +26,8 @@ const AppHeader = () => {
         <header className='app__header'>
             <nav className='app__header-nav'>
                 <Link to="/"><img src={google} alt="header logo" /></Link>
+                <label className="form__label" htmlFor="button__char">Найти персонажа</label><br />
+                <SearchItem />
                 <div className='app__header-buttons'>
                     <Link to="/favorite"><button >Избранное</button></Link>
                     <Link to="/history"><button>История</button></Link>
@@ -33,11 +37,7 @@ const AppHeader = () => {
         </header> :
         <header className='app__header'>
             <nav className='app__header-nav'>
-                <Link to="/"><img src={google} alt="header logo" /></Link>
-                <form action="" method="get">
-                    <input name="s" placeholder="Искать здесь..." type="search" defaultValue="1" />
-                    <Link to="/search"><button type="submit">Поиск</button></Link>
-                </form>
+                <Link to="/"><img src={google} alt="header__logo" /></Link>
                 <div className='app__header-buttons'>
                     <Link to="/login"><button>Войти</button></Link>
                     <Link to="/signup"><button>Регистрация</button></Link>

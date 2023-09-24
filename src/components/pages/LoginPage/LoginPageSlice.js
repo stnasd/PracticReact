@@ -3,7 +3,9 @@ import { createSlice } from "@reduxjs/toolkit";
 
 const initialState = {
     userEmail: '',
-    userOnline: ''
+    userOnline: '',
+    userOnlineFavorite: '',
+    userOnlineHistory: ''
 }
 
 const LoginPageSlice = createSlice({
@@ -19,12 +21,22 @@ const LoginPageSlice = createSlice({
                 state.userEmail = ''
             }
         },
+        userData: (state, actionFavorite) => {
+            state.userOnlineFavorite = actionFavorite.payload.favorite
+            state.userOnlineHistory = actionFavorite.payload.history
+        },
+        userDropData: (state) => {
+            state.userOnlineFavorite = ''
+            state.userOnlineHistory = ''
+        }
     },
 });
 
 const { actions, reducer } = LoginPageSlice;
 
 export const {
+    userDropData,
+    userData,
     useronline
 } = actions;
 export default reducer;

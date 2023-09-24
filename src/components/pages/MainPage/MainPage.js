@@ -48,7 +48,6 @@ const MainPage = () => {
             exit={{ opacity: 0, transition: { duration: 0.1 } }}
         >
             <>
-
                 <div className="app__main-grid">
                     <ErrorBoundary>
                         <CharsList charactersList={charactersList}
@@ -57,7 +56,10 @@ const MainPage = () => {
                         />
                     </ErrorBoundary>
                 </div>
-                <SearchItem />
+                <div className='app__main-search-field'>
+                    <label className="form__label" htmlFor="button__char">Найти персонажа</label><br /><br />
+                    <SearchItem />
+                </div>
             </>
             <button className="button__char"
                 onClick={() => onLoadNewCharacters(charsPage)}
