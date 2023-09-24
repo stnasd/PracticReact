@@ -1,9 +1,12 @@
+import { db } from "../firebase";
 import { createApi, fakeBaseQuery } from "@reduxjs/toolkit/query/react";
 import { getAuth } from "firebase/auth";
-import { createUserWithEmailAndPassword, signInWithEmailAndPassword, signOut } from 'firebase/auth';
-import { db } from "../firebase";
+import {
+    createUserWithEmailAndPassword,
+    signInWithEmailAndPassword,
+    signOut,
+} from "firebase/auth";
 import { arrayUnion, doc, getDoc, setDoc, updateDoc } from "firebase/firestore";
-
 
 export const apiFireBaseSlice = createApi({
     reducerPath: "api",
@@ -12,28 +15,26 @@ export const apiFireBaseSlice = createApi({
     endpoints: (builder) => ({
         ubdateHistory: builder.mutation({
             async queryFn(arg) {
-                console.log(arg)
                 try {
                     const userRef = doc(db, "allusers", arg.email);
                     await updateDoc(userRef, {
-                        history: arrayUnion(arg.newHistory)
-                    })
-                    return { data: 'ok' }
+                        history: arrayUnion(arg.newHistory),
+                    });
+                    return { data: "ok" };
                 } catch (error) {
-                    return { data: 'error' }
+                    return { data: "error" };
                 }
             },
         }),
         getInfoUser: builder.query({
             async queryFn(email) {
-                console.log(email)
                 try {
                     const docRef = doc(db, "allusers", email);
                     const user = await getDoc(docRef);
-                    const res = user.data()
-                    return { data: res }
+                    const res = user.data();
+                    return { data: res };
                 } catch (error) {
-                    return { data: 'error' }
+                    return { data: "error" };
                 }
             },
         }),
@@ -41,49 +42,56 @@ export const apiFireBaseSlice = createApi({
             async queryFn() {
                 try {
                     const auth = getAuth();
-                    signOut(auth)
-                    return { curentdata: 'ok' }
+                    signOut(auth);
+                    return { curentdata: "ok" };
                 } catch (error) {
-                    return { curentdata: 'error' }
+                    return { curentdata: "error" };
                 }
             },
         }),
         login: builder.query({
             async queryFn(args) {
                 try {
-                    const auth = getAuth()
-                    await signInWithEmailAndPassword(auth, args.email, args.pass)
+                    const auth = getAuth();
+                    await signInWithEmailAndPassword(
+                        auth,
+                        args.email,
+                        args.pass
+                    );
                     return {
-                        data: 'ok'
-                    }
+                        data: "ok",
+                    };
                 } catch (error) {
-                    alert('Неправильные данные')
-                    return { data: 'error' }
+                    alert("Неправильные данные");
+                    return { data: "error" };
                 }
             },
         }),
         signup: builder.mutation({
             async queryFn(args) {
                 try {
-                    const auth = getAuth()
-                    await createUserWithEmailAndPassword(auth, args.email, args.pass)
-                        .then((res) => {
-                            setDoc(doc(db, "allusers", res.user.email), {
-                                email: res.user.email,
-                                history: [],
-                                favorite: []
-                            })
-                        })
+                    const auth = getAuth();
+                    await createUserWithEmailAndPassword(
+                        auth,
+                        args.email,
+                        args.pass
+                    ).then((res) => {
+                        setDoc(doc(db, "allusers", res.user.email), {
+                            email: res.user.email,
+                            history: [],
+                            favorite: [],
+                        });
+                    });
                     return {
-                        data: 'ok'
-                    }
+                        data: "ok",
+                    };
                 } catch (error) {
-                    return { data: 'error' }
+                    return { data: "error" };
                 }
             },
-        })
-    })
-})
+        }),
+    }),
+});
 
 export const {
     useLazyGetInfoUserQuery,
