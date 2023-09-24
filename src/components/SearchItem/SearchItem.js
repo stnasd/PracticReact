@@ -14,7 +14,7 @@ const SearchItem = () => {
 
     const onSubmitSearchForm = (newHistory) => {
         udateHistoryFn({ email, newHistory })
-        navigate('/history')
+        navigate('/info')
         triggerGetinfo(email)
             .then(res => {
                 const { favorite, history } = res.data
