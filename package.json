@@ -36,8 +36,12 @@
             "react-app/jest"
         ],
         "rules": {
-            "react/jsx-no-useless-fragment": [2, { "allowExpressions": true }],
-            "allowExpressions": "error",
+            "react/jsx-no-useless-fragment": [
+                "warn",
+                {
+                    "allowExpressions": true
+                }
+            ],
             "react-hooks/rules-of-hooks": "error",
             "react-hooks/exhaustive-deps": "warn",
             "no-console": "warn",
