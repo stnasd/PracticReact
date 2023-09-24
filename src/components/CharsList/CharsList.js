@@ -14,23 +14,17 @@ const CharsList = ({ charactersList, userAuthorized, onChangeTargetCharacter }) 
             const renderButtonsFn = () => {
                 if (userFavorite.length === 0) {
                     return (
-                        <>
-                            <button className='button__char-add'>{add}</button>
-                        </>
+                        <button className='button__char-add'>{add}</button>
                     )
                 } else {
                     for (let i = 0; i < userFavorite.length; i++) {
                         if (id === userFavorite[i]) {
                             return (
-                                <>
-                                    <button className='button__char-delete'>{deleted}</button>
-                                </>
+                                <button className='button__char-delete'>{deleted}</button>
                             )
                         } else {
                             return (
-                                <>
-                                    <button className='button__char-add'>{add}</button>
-                                </>
+                                <button className='button__char-add'>{add}</button>
                             )
                         }
                     }

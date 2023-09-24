@@ -1,25 +1,17 @@
 import { useNavigate } from "react-router-dom"
 import { Formik, Form as Forma, Field, ErrorMessage as FormikErrorMessage } from 'formik';
 import * as Yup from 'yup'
-import { useDispatch, useSelector } from "react-redux";
-import { useLazyGetInfoUserQuery, useUbdateHistoryMutation } from '../../apiFirebase/apiFireBaseSlice';
-import { userData } from '../pages/LoginPage/LoginPageSlice';
+import { useSelector } from "react-redux";
+import { useUbdateHistoryMutation } from '../../apiFirebase/apiFireBaseSlice';
 
 const SearchItem = () => {
     const navigate = useNavigate()
-    const dispatch = useDispatch()
-    const [triggerGetinfo] = useLazyGetInfoUserQuery()
     const [udateHistoryFn,] = useUbdateHistoryMutation()
     const email = useSelector(state => state.login.userEmail)
 
     const onSubmitSearchForm = (newHistory) => {
         udateHistoryFn({ email, newHistory })
         navigate('/info')
-        triggerGetinfo(email)
-            .then(res => {
-                const { favorite, history } = res.data
-                dispatch(userData({ favorite, history }))
-            })
     }
 
     return (

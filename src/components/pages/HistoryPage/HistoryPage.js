@@ -1,14 +1,28 @@
 import './HistoryPage.scss'
 import { motion } from 'framer-motion'
 import { useNavigate } from 'react-router-dom';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { useEffect } from 'react';
+import { useLazyGetInfoUserQuery } from '../../../apiFirebase/apiFireBaseSlice';
+import { userData } from '../LoginPage/LoginPageSlice';
 
 
 const HistoryPage = () => {
+    const dispatch = useDispatch()
+    const [triggerGetinfo] = useLazyGetInfoUserQuery()
     const navigate = useNavigate()
     const userOnline = useSelector(state => state.login.userOnline)
     const userHistory = useSelector(state => state.login.userOnlineHistory)
+    const email = useSelector(state => state.login.userEmail)
+
+    useEffect(() => {
+        triggerGetinfo(email)
+            .then(res => {
+                const { favorite, history } = res.data
+                dispatch(userData({ favorite, history }))
+            })
+    }, [triggerGetinfo, dispatch, email])
+
     useEffect(() => {
         if (!userOnline) {
             navigate('/')
