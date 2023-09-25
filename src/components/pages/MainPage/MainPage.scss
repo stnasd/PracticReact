@@ -17,16 +17,16 @@
             margin-top: 30px;
         }
         &-form{
-            margin-left: 10%;
-            font-size: 40px;
+            display: flex;
+            // margin-left: 10%;
+            // font-size: 40px;
             input{
-                margin-top: 50px;
-                height: 45px;
+                height: 30px;
                 border-radius: 5px;
             }
             button{
                 width: 150px;
-                height: 45px;
+                height: 30px;
                 background-color: #838282;
                 &:hover{
                     background-color: #64affa;
@@ -115,4 +115,9 @@
     left: 25%;
     padding: 15px 50px;
     border-radius: 5px;
+}
+.app__main-search-field{
+    margin-top: 50px;
+    margin-left: 130px;
+    font-size: 20px;
 }

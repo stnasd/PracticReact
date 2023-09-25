@@ -1,4 +1,4 @@
-import './Spinner.css'
+import "./Spinner.css";
 
 const Spinner = () => {
     return (
@@ -12,7 +12,7 @@ const Spinner = () => {
                 </ul>
             </div>
         </div>
-    )
-}
+    );
+};
 
 export default Spinner;

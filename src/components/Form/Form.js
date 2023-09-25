@@ -14,10 +14,10 @@ const Form = ({ title, onHandleSubmit }) => {
                 validationSchema={Yup.object({
                     pass: Yup.string()
                         .min(6, 'Минимум 6 символа')
-                        .max(15, 'Максимум 15 симфолов')
+                        .max(15, 'Максимум 15 символов')
                         .required('Password: обязательное поле!'),
                     email: Yup.string()
-                        .email('Не правильный email адрес')
+                        .email('Неправильный email адрес')
                         .required('Email: Обязательное поле!'),
                 })}
                 onSubmit={({ email, pass }) => {
