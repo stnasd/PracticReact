@@ -114,5 +114,4 @@ const MainPage = () => {
         </motion.div>
     );
 };
-
 export default MainPage;
