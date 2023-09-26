@@ -5,6 +5,7 @@ import { motion } from "framer-motion";
 import { useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { useEffect } from "react";
+import { v4 as uuidv4 } from "uuid";
 
 const HistoryPage = () => {
     const dispatch = useDispatch();
@@ -30,12 +31,16 @@ const HistoryPage = () => {
     const renderSearchHistoyItemsFn = (itemsHistory) => {
         if (itemsHistory.length !== 0) {
             return itemsHistory.map((item) => {
-                return <div className="history__items-url">{item}</div>;
+                return (
+                    <div className="history__items-url" key={uuidv4()}>
+                        {item}
+                    </div>
+                );
             });
         } else {
             return (
                 <div className="history__items-url">
-                    Истории поиска еще нет..
+                    Истории поиска пока нет..
                 </div>
             );
         }

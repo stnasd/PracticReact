@@ -6,14 +6,64 @@ import {
     signInWithEmailAndPassword,
     signOut,
 } from "firebase/auth";
-import { arrayUnion, doc, getDoc, setDoc, updateDoc } from "firebase/firestore";
+import {
+    arrayRemove,
+    arrayUnion,
+    doc,
+    getDoc,
+    setDoc,
+    updateDoc,
+} from "firebase/firestore";
 
 export const apiFireBaseSlice = createApi({
     reducerPath: "api",
     baseQuery: fakeBaseQuery(),
     tagTypes: ["User"],
     endpoints: (builder) => ({
-        ubdateHistory: builder.mutation({
+        deleteFavorite: builder.mutation({
+            async queryFn(arg) {
+                try {
+                    const userRef = doc(db, "allusers", arg.email);
+                    await updateDoc(userRef, {
+                        favorite: arrayRemove(arg.favoriteItem),
+                    });
+                    const user = await getDoc(userRef);
+                    const res = user.data();
+                    return { data: res };
+                } catch (error) {
+                    return { data: "error" };
+                }
+            },
+        }),
+        updateFavorite: builder.mutation({
+            async queryFn(arg) {
+                try {
+                    const userRef = doc(db, "allusers", arg.email);
+                    await updateDoc(userRef, {
+                        favorite: arrayUnion(arg.newFavorite),
+                    });
+                    const user = await getDoc(userRef);
+                    const res = user.data();
+                    return { data: res };
+                } catch (error) {
+                    return { data: "error" };
+                }
+            },
+        }),
+        deleteHistory: builder.mutation({
+            async queryFn(arg) {
+                try {
+                    const userRef = doc(db, "allusers", arg.email);
+                    await updateDoc(userRef, {
+                        history: arrayRemove(arg.newHistory),
+                    });
+                    return { data: "ok" };
+                } catch (error) {
+                    return { data: "error" };
+                }
+            },
+        }),
+        updateHistory: builder.mutation({
             async queryFn(arg) {
                 try {
                     const userRef = doc(db, "allusers", arg.email);
@@ -94,8 +144,11 @@ export const apiFireBaseSlice = createApi({
 });
 
 export const {
+    useDeleteHistoryMutation,
+    useDeleteFavoriteMutation,
+    useUpdateFavoriteMutation,
     useLazyGetInfoUserQuery,
-    useUbdateHistoryMutation,
+    useUpdateHistoryMutation,
     useSignoutMutation,
     useSignupMutation,
     useLazyLoginQuery,

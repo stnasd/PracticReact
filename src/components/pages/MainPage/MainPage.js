@@ -4,6 +4,11 @@ import {
     addCharactersPage,
     addCharactersItems,
 } from "./MainPageSlice";
+import { fetchFavoriteCharacter } from "../FavoritePage/FavoritePage.slice";
+import { deleteFavoriteCharacter } from "../FavoritePage/FavoritePage.slice";
+import { useUpdateFavoriteMutation } from "../../../apiFirebase/apiFireBaseSlice";
+import { useDeleteFavoriteMutation } from "../../../apiFirebase/apiFireBaseSlice";
+import { userData } from "../LoginPage/LoginPageSlice";
 import useCharService from "../../../services/CharsServices";
 import CharsList from "../../CharsList/CharsList";
 import SearchItem from "../../SearchItem/SearchItem";
@@ -19,6 +24,9 @@ const MainPage = () => {
     const dispatch = useDispatch();
     const navigate = useNavigate();
     const { getAllCharacters } = useCharService();
+    const [updateFavoriteFn] = useUpdateFavoriteMutation();
+    const [deleteFavoriteFn] = useDeleteFavoriteMutation();
+
     const loadingStatus = useSelector(
         (state) => state.characters.charsLoadingStatus
     );
@@ -26,11 +34,30 @@ const MainPage = () => {
         (state) => state.characters.charactersList
     );
     const charsPage = useSelector((state) => state.characters.page);
-    const userAuthorized = useSelector((state) => state.login.userOnline);
+    const email = useSelector((state) => state.login.userEmail);
+    const favorite = useSelector((state) => state.login.userOnlineFavorite);
+    const userOnline = useSelector((state) => state.login.userOnline);
 
     const onChangeTargetCharacter = (e) => {
         dispatch(fetchCharacter(e));
         navigate("/info");
+    };
+
+    const onAddNewFavorite = (newFavorite) => {
+        const data = updateFavoriteFn({ email, newFavorite });
+        data.then((res) => {
+            const { favorite, history } = res.data;
+            dispatch(userData({ favorite, history }));
+            dispatch(fetchFavoriteCharacter(newFavorite));
+        });
+    };
+    const onDeleteFavorite = (favoriteItem) => {
+        const data = deleteFavoriteFn({ email, favoriteItem });
+        data.then((res) => {
+            const { favorite, history } = res.data;
+            dispatch(userData({ favorite, history }));
+            dispatch(deleteFavoriteCharacter(favoriteItem));
+        });
     };
 
     useEffect(() => {
@@ -60,9 +87,12 @@ const MainPage = () => {
                 <div className="app__main-grid">
                     <ErrorBoundary>
                         <CharsList
+                            favorite={favorite}
                             charactersList={charactersList}
-                            userAuthorized={userAuthorized}
                             onChangeTargetCharacter={onChangeTargetCharacter}
+                            onAddNewFavorite={onAddNewFavorite}
+                            onDeleteFavorite={onDeleteFavorite}
+                            userOnline={userOnline}
                         />
                     </ErrorBoundary>
                 </div>
