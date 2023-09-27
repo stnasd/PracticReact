@@ -1,4 +1,3 @@
-import { deleteFavoriteCharacter } from "./FavoritePage.slice";
 import { fetchCharacter } from "../MainPage/MainPageSlice";
 import { useDeleteFavoriteMutation } from "../../../apiFirebase/apiFireBaseSlice";
 import { useLazyGetInfoUserQuery } from "../../../apiFirebase/apiFireBaseSlice";
@@ -14,13 +13,12 @@ const FavoritePage = () => {
     const navigate = useNavigate();
     const dispatch = useDispatch();
     const [triggerGetinfo] = useLazyGetInfoUserQuery();
-    const [deleteFavoriteFn] = useDeleteFavoriteMutation();
+    const [deleteFavoritemFn] = useDeleteFavoriteMutation();
     const userOnline = useSelector((state) => state.login.userOnline);
     const email = useSelector((state) => state.login.userEmail);
     const favoriteCharacters = useSelector(
         (state) => state.favorite.favoriteIdCharacters
     );
-
     useEffect(() => {
         if (!userOnline) {
             navigate("/");
@@ -35,13 +33,9 @@ const FavoritePage = () => {
     }, [triggerGetinfo, dispatch, email]);
 
     const onDeleteFavorite = (favoriteItem) => {
-        const data = deleteFavoriteFn({ email, favoriteItem });
-        data.then((res) => {
-            const { favorite, history } = res.data;
-            dispatch(userData({ favorite, history }));
-            dispatch(deleteFavoriteCharacter(favoriteItem));
-        });
+        deleteFavoritemFn({ email, favoriteItem });
     };
+
     const onChangeTargetCharacter = (e) => {
         dispatch(fetchCharacter(e));
         navigate("/info");
@@ -59,11 +53,17 @@ const FavoritePage = () => {
                 <button>Очистить все</button>
             </div>
             <div className="app__favorite-grid">
-                <FavoriteListItem
-                    onChangeTargetCharacter={onChangeTargetCharacter}
-                    onDeleteFavorite={onDeleteFavorite}
-                    favoriteCharacters={favoriteCharacters}
-                />
+                {favoriteCharacters.length !== 0 ? (
+                    <FavoriteListItem
+                        onChangeTargetCharacter={onChangeTargetCharacter}
+                        onDeleteFavorite={onDeleteFavorite}
+                        favoriteCharacters={favoriteCharacters}
+                    />
+                ) : (
+                    <div className="history__items-url">
+                        Избранных персонажей пока нет
+                    </div>
+                )}
             </div>
         </motion.div>
     );

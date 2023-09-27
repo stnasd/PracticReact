@@ -4,11 +4,8 @@ import {
     addCharactersPage,
     addCharactersItems,
 } from "./MainPageSlice";
-import { fetchFavoriteCharacter } from "../FavoritePage/FavoritePage.slice";
-import { deleteFavoriteCharacter } from "../FavoritePage/FavoritePage.slice";
 import { useUpdateFavoriteMutation } from "../../../apiFirebase/apiFireBaseSlice";
 import { useDeleteFavoriteMutation } from "../../../apiFirebase/apiFireBaseSlice";
-import { userData } from "../LoginPage/LoginPageSlice";
 import useCharService from "../../../services/CharsServices";
 import CharsList from "../../CharsList/CharsList";
 import SearchItem from "../../SearchItem/SearchItem";
@@ -44,20 +41,10 @@ const MainPage = () => {
     };
 
     const onAddNewFavorite = (newFavorite) => {
-        const data = updateFavoriteFn({ email, newFavorite });
-        data.then((res) => {
-            const { favorite, history } = res.data;
-            dispatch(userData({ favorite, history }));
-            dispatch(fetchFavoriteCharacter(newFavorite));
-        });
+        updateFavoriteFn({ email, newFavorite });
     };
     const onDeleteFavorite = (favoriteItem) => {
-        const data = deleteFavoriteFn({ email, favoriteItem });
-        data.then((res) => {
-            const { favorite, history } = res.data;
-            dispatch(userData({ favorite, history }));
-            dispatch(deleteFavoriteCharacter(favoriteItem));
-        });
+        deleteFavoriteFn({ email, favoriteItem });
     };
 
     useEffect(() => {
@@ -97,12 +84,14 @@ const MainPage = () => {
                     </ErrorBoundary>
                 </div>
                 <div className="app__main-search-field">
-                    <label className="form__label" htmlFor="button__char">
-                        Найти персонажа
-                    </label>
+                    {userOnline ? (
+                        <label className="form__label" htmlFor="button__char">
+                            Найти персонажа
+                        </label>
+                    ) : null}
                     <br />
                     <br />
-                    <SearchItem />
+                    {userOnline ? <SearchItem /> : null}
                 </div>
             </>
             <button

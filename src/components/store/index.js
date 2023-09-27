@@ -1,3 +1,4 @@
+import { favoriteMiddleWare } from "./middleWare/middleWare";
 import { apiFireBaseSlice } from "../../apiFirebase/apiFireBaseSlice";
 import characters from "../pages/MainPage/MainPageSlice";
 import login from "../pages/LoginPage/LoginPageSlice";
@@ -12,7 +13,10 @@ const store = configureStore({
         [apiFireBaseSlice.reducerPath]: apiFireBaseSlice.reducer,
     },
     middleware: (getDefaultMidleWare) =>
-        getDefaultMidleWare().concat(apiFireBaseSlice.middleware),
+        getDefaultMidleWare().concat(
+            apiFireBaseSlice.middleware,
+            favoriteMiddleWare
+        ),
     devTools: process.env.NODE_ENV !== "production",
 });
 

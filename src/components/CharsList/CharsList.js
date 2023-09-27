@@ -1,4 +1,3 @@
-import Spinner from "../Spinner/Spinner";
 import dataTextButtonsOnline from "../context/context";
 import PropTypes from "prop-types";
 import { useContext } from "react";
@@ -9,9 +8,7 @@ const CharsList = ({
     onDeleteFavorite,
     onAddNewFavorite,
     favorite,
-    useronline,
 }) => {
-    // const userFavorite = useSelector((state) => state.login.userOnlineFavorite);
     const textButtonsContext = useContext(dataTextButtonsOnline);
     const { add, deleted } = textButtonsContext;
     const renderItems = (arr, data) => {
@@ -39,19 +36,15 @@ const CharsList = ({
                 }
                 if (data) {
                     for (let i = 0; i < data.length; i++) {
-                        if (data[i] === id) {
+                        if (data.includes(id)) {
                             return buttonDelete;
-                        }
-                    }
-                    for (let i = 0; i < data.length; i++) {
-                        if (data[i] !== id) {
+                        } else {
                             return buttonAdd;
                         }
                     }
-                } else {
-                    <Spinner />;
                 }
             };
+
             const buttons = renderButtonsFn();
             return (
                 <div className="char__item" timeout={700} key={id}>

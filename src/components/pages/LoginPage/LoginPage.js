@@ -1,4 +1,5 @@
 import { useLazyLoginQuery } from "../../../apiFirebase/apiFireBaseSlice";
+import { useLazyGetInfoUserQuery } from "../../../apiFirebase/apiFireBaseSlice";
 import Form from "../../Form/Form";
 import { motion } from "framer-motion";
 import "./LoginPage.scss";
@@ -7,6 +8,7 @@ import { useNavigate } from "react-router-dom";
 const LoginPage = () => {
     const navigate = useNavigate();
     const [triggerLoginUser] = useLazyLoginQuery();
+    const [triggerGetinfo] = useLazyGetInfoUserQuery();
 
     const onHandleSubmit = (args) => {
         triggerLoginUser(args).then((res) => {
@@ -14,6 +16,7 @@ const LoginPage = () => {
                 navigate("/");
             }
         });
+        triggerGetinfo(args.email);
     };
 
     return (

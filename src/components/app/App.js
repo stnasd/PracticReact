@@ -1,8 +1,6 @@
 import AnimatedRoutes from "./AnimatedRoutes";
 import { useronline } from "../pages/LoginPage/LoginPageSlice";
 import { useLazyGetInfoUserQuery } from "../../apiFirebase/apiFireBaseSlice";
-import { userData } from "../pages/LoginPage/LoginPageSlice";
-import { fetchFavoriteCharacter } from "../pages/FavoritePage/FavoritePage.slice";
 import AppHeader from "../header/AppHeader";
 import Spinner from "../Spinner/Spinner";
 import { BrowserRouter as Router } from "react-router-dom";
@@ -21,13 +19,7 @@ function App() {
         const unsubscribe = onAuthStateChanged(auth, (user) => {
             if (user !== null && user) {
                 dispatch(useronline(user.email));
-                triggerGetinfo(user.email).then((res) => {
-                    const { favorite, history } = res.data;
-                    dispatch(userData({ favorite, history }));
-                    favorite.forEach((item) => {
-                        dispatch(fetchFavoriteCharacter(item));
-                    });
-                });
+                triggerGetinfo(user.email);
             } else {
                 dispatch(useronline("offline"));
             }

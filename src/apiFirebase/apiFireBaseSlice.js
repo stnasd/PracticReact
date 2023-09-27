@@ -29,6 +29,8 @@ export const apiFireBaseSlice = createApi({
                     });
                     const user = await getDoc(userRef);
                     const res = user.data();
+                    res.deleteFavorite = true;
+                    res.deletedItem = arg.favoriteItem;
                     return { data: res };
                 } catch (error) {
                     return { data: "error" };
@@ -44,7 +46,8 @@ export const apiFireBaseSlice = createApi({
                     });
                     const user = await getDoc(userRef);
                     const res = user.data();
-                    return { data: res };
+                    res.deleteFavorite = false;
+                    return { data: res, arg: arg.newFavorite };
                 } catch (error) {
                     return { data: "error" };
                 }
@@ -82,6 +85,7 @@ export const apiFireBaseSlice = createApi({
                     const docRef = doc(db, "allusers", email);
                     const user = await getDoc(docRef);
                     const res = user.data();
+                    res.getAll = true;
                     return { data: res };
                 } catch (error) {
                     return { data: "error" };

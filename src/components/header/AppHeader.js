@@ -1,4 +1,5 @@
 import { useronline, userDropData } from "../pages/LoginPage/LoginPageSlice";
+import { userQuit } from "../pages/FavoritePage/FavoritePage.slice";
 import { useSignoutMutation } from "../../apiFirebase/apiFireBaseSlice";
 import SearchItem from "../SearchItem/SearchItem";
 import "./AppHeader.scss";
@@ -18,6 +19,7 @@ const AppHeader = () => {
         navigate("/");
         dispatch(userDropData());
         dispatch(useronline("offline"));
+        dispatch(userQuit());
     };
 
     const header = userAuthorized ? (
