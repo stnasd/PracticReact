@@ -146,7 +146,7 @@ export const apiFireBaseSlice = createApi({
         }),
     }),
 });
-
+console.log("dasdas");
 export const {
     useDeleteHistoryMutation,
     useDeleteFavoriteMutation,
