@@ -30,12 +30,16 @@ const HistoryPage = () => {
     const renderSearchHistoyItemsFn = (itemsHistory) => {
         if (itemsHistory.length !== 0) {
             return itemsHistory.map((item) => {
-                return <div className="history__items-url">{item}</div>;
+                return (
+                    <div className="history__items-url" key={item}>
+                        {item}
+                    </div>
+                );
             });
         } else {
             return (
                 <div className="history__items-url">
-                    Истории поиска еще нет..
+                    Истории поиска пока нет..
                 </div>
             );
         }

@@ -1,4 +1,4 @@
-import { useUbdateHistoryMutation } from "../../apiFirebase/apiFireBaseSlice";
+import { useUpdateHistoryMutation } from "../../apiFirebase/apiFireBaseSlice";
 import { useNavigate } from "react-router-dom";
 import {
     Formik,
@@ -11,11 +11,11 @@ import { useSelector } from "react-redux";
 
 const SearchItem = () => {
     const navigate = useNavigate();
-    const [udateHistoryFn] = useUbdateHistoryMutation();
+    const [updateHistoryFn] = useUpdateHistoryMutation();
     const email = useSelector((state) => state.login.userEmail);
 
     const onSubmitSearchForm = (newHistory) => {
-        udateHistoryFn({ email, newHistory });
+        updateHistoryFn({ email, newHistory });
         navigate("/info");
     };
 
@@ -28,6 +28,7 @@ const SearchItem = () => {
                 character: Yup.string()
                     .max(15, "Максимум 15 символов")
                     .min(2, "Минимум 2 символа")
+                    .required("Email: Обязательное поле!")
                     .matches(/\D/g, "В поле должны быть только буквы."),
             })}
             onSubmit={({ character }) => {

@@ -1,20 +1,45 @@
-import inkognito from "../../../images/inkognito.jpg";
+import { fetchCharacter } from "../MainPage/MainPageSlice";
+import { useDeleteFavoriteMutation } from "../../../apiFirebase/apiFireBaseSlice";
+import { useLazyGetInfoUserQuery } from "../../../apiFirebase/apiFireBaseSlice";
+import { userData } from "../LoginPage/LoginPageSlice";
+import FavoriteListItem from "../../FavoriteList/FavoriteListItem";
 import "./FavoritePage.scss";
-import { Link } from "react-router-dom";
 import { motion } from "framer-motion";
 import { useNavigate } from "react-router-dom";
 import { useEffect } from "react";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 
 const FavoritePage = () => {
     const navigate = useNavigate();
+    const dispatch = useDispatch();
+    const [triggerGetinfo] = useLazyGetInfoUserQuery();
+    const [deleteFavoritemFn] = useDeleteFavoriteMutation();
     const userOnline = useSelector((state) => state.login.userOnline);
-
+    const email = useSelector((state) => state.login.userEmail);
+    const favoriteCharacters = useSelector(
+        (state) => state.favorite.favoriteIdCharacters
+    );
     useEffect(() => {
         if (!userOnline) {
             navigate("/");
         }
     }, [userOnline, navigate]);
+
+    useEffect(() => {
+        triggerGetinfo(email).then((res) => {
+            const { favorite, history } = res.data;
+            dispatch(userData({ favorite, history }));
+        });
+    }, [triggerGetinfo, dispatch, email]);
+
+    const onDeleteFavorite = (favoriteItem) => {
+        deleteFavoritemFn({ email, favoriteItem });
+    };
+
+    const onChangeTargetCharacter = (e) => {
+        dispatch(fetchCharacter(e));
+        navigate("/info");
+    };
 
     return (
         <motion.div
@@ -28,24 +53,17 @@ const FavoritePage = () => {
                 <button>Очистить все</button>
             </div>
             <div className="app__favorite-grid">
-                <div className="char__item  favorite__item" timeout={700}>
-                    <button className="favorite__item-delete">Удалить</button>
-                    <img src={inkognito} alt="inkognito" className="" />
-                    <div className="char__name">name</div>
-                    <div className="char__item-playedby">Кто играл :</div>
-                    <Link to="/info">
-                        <button>Больше информации</button>
-                    </Link>
-                </div>
-                <div className="char__item favorite__item" timeout={700}>
-                    <button className="favorite__item-delete">Удалить</button>
-                    <img src={inkognito} alt="inkognito" className="" />
-                    <div className="char__name">name</div>
-                    <div className="char__item-playedby ">Кто играл :</div>
-                    <Link to="/info">
-                        <button>Больше информации</button>
-                    </Link>
-                </div>
+                {favoriteCharacters.length !== 0 ? (
+                    <FavoriteListItem
+                        onChangeTargetCharacter={onChangeTargetCharacter}
+                        onDeleteFavorite={onDeleteFavorite}
+                        favoriteCharacters={favoriteCharacters}
+                    />
+                ) : (
+                    <div className="history__items-url">
+                        Избранных персонажей пока нет
+                    </div>
+                )}
             </div>
         </motion.div>
     );

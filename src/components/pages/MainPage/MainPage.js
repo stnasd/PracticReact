@@ -4,6 +4,8 @@ import {
     addCharactersPage,
     addCharactersItems,
 } from "./MainPageSlice";
+import { useUpdateFavoriteMutation } from "../../../apiFirebase/apiFireBaseSlice";
+import { useDeleteFavoriteMutation } from "../../../apiFirebase/apiFireBaseSlice";
 import useCharService from "../../../services/CharsServices";
 import CharsList from "../../CharsList/CharsList";
 import SearchItem from "../../SearchItem/SearchItem";
@@ -19,6 +21,9 @@ const MainPage = () => {
     const dispatch = useDispatch();
     const navigate = useNavigate();
     const { getAllCharacters } = useCharService();
+    const [updateFavoriteFn] = useUpdateFavoriteMutation();
+    const [deleteFavoriteFn] = useDeleteFavoriteMutation();
+
     const loadingStatus = useSelector(
         (state) => state.characters.charsLoadingStatus
     );
@@ -26,11 +31,20 @@ const MainPage = () => {
         (state) => state.characters.charactersList
     );
     const charsPage = useSelector((state) => state.characters.page);
-    const userAuthorized = useSelector((state) => state.login.userOnline);
+    const email = useSelector((state) => state.login.userEmail);
+    const favorite = useSelector((state) => state.login.userOnlineFavorite);
+    const userOnline = useSelector((state) => state.login.userOnline);
 
     const onChangeTargetCharacter = (e) => {
         dispatch(fetchCharacter(e));
         navigate("/info");
+    };
+
+    const onAddNewFavorite = (newFavorite) => {
+        updateFavoriteFn({ email, newFavorite });
+    };
+    const onDeleteFavorite = (favoriteItem) => {
+        deleteFavoriteFn({ email, favoriteItem });
     };
 
     useEffect(() => {
@@ -60,19 +74,24 @@ const MainPage = () => {
                 <div className="app__main-grid">
                     <ErrorBoundary>
                         <CharsList
+                            favorite={favorite}
                             charactersList={charactersList}
-                            userAuthorized={userAuthorized}
                             onChangeTargetCharacter={onChangeTargetCharacter}
+                            onAddNewFavorite={onAddNewFavorite}
+                            onDeleteFavorite={onDeleteFavorite}
+                            userOnline={userOnline}
                         />
                     </ErrorBoundary>
                 </div>
                 <div className="app__main-search-field">
-                    <label className="form__label" htmlFor="button__char">
-                        Найти персонажа
-                    </label>
+                    {userOnline ? (
+                        <label className="form__label" htmlFor="button__char">
+                            Найти персонажа
+                        </label>
+                    ) : null}
                     <br />
                     <br />
-                    <SearchItem />
+                    {userOnline ? <SearchItem /> : null}
                 </div>
             </>
             <button
@@ -84,5 +103,4 @@ const MainPage = () => {
         </motion.div>
     );
 };
-
 export default MainPage;

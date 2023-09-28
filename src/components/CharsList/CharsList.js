@@ -1,47 +1,57 @@
 import dataTextButtonsOnline from "../context/context";
 import PropTypes from "prop-types";
 import { useContext } from "react";
-import { useSelector } from "react-redux";
 
 const CharsList = ({
     charactersList,
-    userAuthorized,
     onChangeTargetCharacter,
+    onDeleteFavorite,
+    onAddNewFavorite,
+    favorite,
 }) => {
-    const userFavorite = useSelector((state) => state.login.userOnlineFavorite);
     const textButtonsContext = useContext(dataTextButtonsOnline);
     const { add, deleted } = textButtonsContext;
-
-    const renderItems = (arr, userLogin, data) => {
+    const renderItems = (arr, data) => {
         return arr.map((item) => {
             const { image, name, id, origin } = item;
+            const buttonDelete = (
+                <button
+                    className="button__char-add"
+                    onClick={() => onDeleteFavorite(id)}
+                >
+                    {deleted}
+                </button>
+            );
+            const buttonAdd = (
+                <button
+                    className="button__char-add"
+                    onClick={() => onAddNewFavorite(id)}
+                >
+                    {add}
+                </button>
+            );
             const renderButtonsFn = () => {
-                if (userFavorite.length === 0) {
-                    return <button className="button__char-add">{add}</button>;
-                } else {
-                    for (let i = 0; i < userFavorite.length; i++) {
-                        if (id === userFavorite[i]) {
-                            return (
-                                <button className="button__char-add">
-                                    {deleted}
-                                </button>
-                            );
+                if (data && data.length === 0) {
+                    return buttonAdd;
+                }
+                if (data) {
+                    for (let i = 0; i < data.length; i++) {
+                        if (data.includes(id)) {
+                            return buttonDelete;
                         } else {
-                            return (
-                                <button className="button__char-add">
-                                    {add}
-                                </button>
-                            );
+                            return buttonAdd;
                         }
                     }
                 }
             };
+
+            const buttons = renderButtonsFn();
             return (
                 <div className="char__item" timeout={700} key={id}>
                     <img src={`${image}`} alt={name} />
                     <div className="char__name">name : {name}</div>
                     <div className="char__item-playedby">Origin : {origin}</div>
-                    {userLogin ? renderButtonsFn() : null}
+                    {buttons}
                     <button
                         className="char__info-button"
                         onClick={() => onChangeTargetCharacter(id)}
@@ -53,11 +63,7 @@ const CharsList = ({
         });
     };
 
-    const charElements = renderItems(
-        charactersList,
-        userAuthorized,
-        userFavorite
-    );
+    const charElements = renderItems(charactersList, favorite);
     return <>{charElements}</>;
 };
 
