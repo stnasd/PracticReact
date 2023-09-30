@@ -89,16 +89,6 @@ const CharInfo = () => {
                 </div>
             </div>
             {renderButtonsFn()}
-            {/* <div className="char__info-favorite">
-                <button className="button__favorite button__info-block"
-                onClick={onAddNewFavorite(id)}>
-                    Добаваить в избранное{" "}
-                </button>
-                <button className="button__favorite button__info-block"
-                >
-                    Удалить из избранного{" "}
-                </button>
-            </div> */}
         </div>
     );
 };
