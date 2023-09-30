@@ -18,6 +18,13 @@ const useCharService = () => {
         const res = await request(`${_apiBase}/${id}`);
         return res.map(_transformCharacter);
     };
+    const getSearchCharacters = async (name) => {
+        if (name === "") {
+            return [];
+        }
+        const res = await request(`${_apiBase}/?name=${name}`);
+        return res.results.map(_transformCharacter);
+    };
 
     const _transformCharacter = (char) => {
         return {
@@ -33,6 +40,7 @@ const useCharService = () => {
     };
 
     return {
+        getSearchCharacters,
         getFavoriteCharacters,
         getAllCharacters,
         getCharacter,

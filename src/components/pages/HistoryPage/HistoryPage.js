@@ -1,5 +1,4 @@
 import { useLazyGetInfoUserQuery } from "../../../apiFirebase/apiFireBaseSlice";
-import { userData } from "../LoginPage/LoginPageSlice";
 import "./HistoryPage.scss";
 import { motion } from "framer-motion";
 import { useNavigate } from "react-router-dom";
@@ -13,12 +12,8 @@ const HistoryPage = () => {
     const userOnline = useSelector((state) => state.login.userOnline);
     const userHistory = useSelector((state) => state.login.userOnlineHistory);
     const email = useSelector((state) => state.login.userEmail);
-
     useEffect(() => {
-        triggerGetinfo(email).then((res) => {
-            const { favorite, history } = res.data;
-            dispatch(userData({ favorite, history }));
-        });
+        triggerGetinfo(email);
     }, [triggerGetinfo, dispatch, email]);
 
     useEffect(() => {
