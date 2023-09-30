@@ -1,0 +1,33 @@
+.char__search {
+    width: 150px;
+    height: 220px;
+    background-color: #434141;
+    box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.25);
+    padding: 15px;
+    position: relative;
+    font-size: 12px;
+    cursor: pointer;
+    transition: 0.3s transform;
+    img {
+        width: 150px;
+        height: 140px;
+        object-fit: cover;
+        transform: translate(-15px, -15px);
+    }
+}
+.search__char-grid {
+    position: absolute;
+    display: grid;
+    grid-template-columns: repeat(3, 150px);
+    top: 100px;
+    left: 400px;
+    column-gap: 25px;
+    row-gap: 10px;
+    margin-left: 50px;
+    margin-top: 30px;
+    z-index: 3;
+    background: #484848;
+}
+.char__search-name {
+    padding-bottom: 10px;
+}
