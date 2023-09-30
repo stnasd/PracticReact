@@ -2,6 +2,7 @@ import { useronline, userDropData } from "../pages/LoginPage/LoginPageSlice";
 import { userQuit } from "../pages/FavoritePage/FavoritePage.slice";
 import { useSignoutMutation } from "../../apiFirebase/apiFireBaseSlice";
 import SearchItem from "../SearchItem/SearchItem";
+import CharacterSearchList from "../CharacterSearchList/CharacterSearchList";
 import "./AppHeader.scss";
 import google from "../../images/google.png";
 import { Link } from "react-router-dom";
@@ -33,6 +34,7 @@ const AppHeader = () => {
                 </label>
                 <br />
                 <SearchItem />
+                <CharacterSearchList />
                 <div className="app__header-buttons">
                     <Link to="/favorite">
                         <button>Избранное</button>

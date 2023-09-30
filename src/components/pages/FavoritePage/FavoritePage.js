@@ -26,10 +26,7 @@ const FavoritePage = () => {
     }, [userOnline, navigate]);
 
     useEffect(() => {
-        triggerGetinfo(email).then((res) => {
-            const { favorite, history } = res.data;
-            dispatch(userData({ favorite, history }));
-        });
+        triggerGetinfo(email);
     }, [triggerGetinfo, dispatch, email]);
 
     const onDeleteFavorite = (favoriteItem) => {
@@ -48,10 +45,7 @@ const FavoritePage = () => {
             animate={{ opacity: 1, transition: { duration: 0.3 } }}
             exit={{ opacity: 0, transition: { duration: 0.1 } }}
         >
-            <div className="app__favorite-text">
-                Ваши избранные персонажи
-                <button>Очистить все</button>
-            </div>
+            <div className="app__favorite-text">Ваши избранные персонажи</div>
             <div className="app__favorite-grid">
                 {favoriteCharacters.length !== 0 ? (
                     <FavoriteListItem

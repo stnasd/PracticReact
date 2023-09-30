@@ -24,13 +24,13 @@ const MainPage = () => {
     const [updateFavoriteFn] = useUpdateFavoriteMutation();
     const [deleteFavoriteFn] = useDeleteFavoriteMutation();
 
-    const loadingStatus = useSelector(
-        (state) => state.characters.charsLoadingStatus
-    );
     const charactersList = useSelector(
         (state) => state.characters.charactersList
     );
     const charsPage = useSelector((state) => state.characters.page);
+    const loadingStatus = useSelector(
+        (state) => state.characters.charsLoadingStatus
+    );
     const email = useSelector((state) => state.login.userEmail);
     const favorite = useSelector((state) => state.login.userOnlineFavorite);
     const userOnline = useSelector((state) => state.login.userOnline);
@@ -74,8 +74,8 @@ const MainPage = () => {
                 <div className="app__main-grid">
                     <ErrorBoundary>
                         <CharsList
-                            favorite={favorite}
                             charactersList={charactersList}
+                            favorite={favorite}
                             onChangeTargetCharacter={onChangeTargetCharacter}
                             onAddNewFavorite={onAddNewFavorite}
                             onDeleteFavorite={onDeleteFavorite}

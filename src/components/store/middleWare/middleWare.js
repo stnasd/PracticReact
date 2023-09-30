@@ -5,7 +5,7 @@ import { deleteFavoritemCharacter } from "../../pages/FavoritePage/FavoritePage.
 
 export const favoriteMiddleWare = (state) => (next) => (action) => {
     if (action.type === "api/executeMutation/fulfilled") {
-        if (!action.payload.deleteFavorite) {
+        if (!action.payload.deleteFavorite && action.payload !== "ok") {
             const { favorite, history } = action.payload;
             state.dispatch(userData({ favorite, history }));
             state.dispatch(fetchAddFavoriteCharacter(favorite));

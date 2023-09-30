@@ -1,58 +1,60 @@
+import useDebounce from "../hooks/useDebounce.hook";
 import { useUpdateHistoryMutation } from "../../apiFirebase/apiFireBaseSlice";
+import { getSearhCharacterFetch } from "../pages/FoundCharactersPage/FoundCharactersPage.slice";
+import { clearInput } from "../pages/FoundCharactersPage/FoundCharactersPage.slice";
+import { changeInputSearch } from "../pages/FoundCharactersPage/FoundCharactersPage.slice";
 import { useNavigate } from "react-router-dom";
-import {
-    Formik,
-    Form as Forma,
-    Field,
-    ErrorMessage as FormikErrorMessage,
-} from "formik";
-import * as Yup from "yup";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
+import { useEffect } from "react";
 
 const SearchItem = () => {
     const navigate = useNavigate();
+    const dispatch = useDispatch();
     const [updateHistoryFn] = useUpdateHistoryMutation();
     const email = useSelector((state) => state.login.userEmail);
+    const newHistory = useSelector((state) => state.search.inputChange);
+    const serchTerm = useDebounce(newHistory, 500);
 
-    const onSubmitSearchForm = (newHistory) => {
+    const onHandleChange = () => {
+        dispatch(getSearhCharacterFetch(serchTerm));
+    };
+    useEffect(() => {
+        if (serchTerm) {
+            onHandleChange();
+        }
+        if (serchTerm === "") {
+            dispatch(clearInput());
+        }
+        // eslint-disable-next-line
+    }, [serchTerm]);
+
+    const onSubmitSearchForm = (e) => {
+        e.preventDefault();
         updateHistoryFn({ email, newHistory });
-        navigate("/info");
+        dispatch(clearInput());
+        navigate("/search");
     };
 
     return (
-        <Formik
-            initialValues={{
-                character: "",
-            }}
-            validationSchema={Yup.object({
-                character: Yup.string()
-                    .max(15, "Максимум 15 символов")
-                    .min(2, "Минимум 2 символа")
-                    .required("Email: Обязательное поле!")
-                    .matches(/\D/g, "В поле должны быть только буквы."),
-            })}
-            onSubmit={({ character }) => {
-                onSubmitSearchForm(character);
+        <form
+            className="app__main-form"
+            onSubmit={(e) => {
+                onSubmitSearchForm(e);
             }}
         >
-            <Forma className="app__main-form">
-                <Field
-                    id="character"
-                    name="character"
-                    type="text"
-                    placeholder="Enter name"
-                    className=""
-                />
-                <button type="submit">
-                    <div>Поиск</div>
-                </button>
-                <FormikErrorMessage
-                    component="div"
-                    className="user__search-error"
-                    name="character"
-                />
-            </Forma>
-        </Formik>
+            <input
+                id="character"
+                name="character"
+                type="text"
+                value={newHistory}
+                placeholder="Enter name"
+                className=""
+                onChange={(e) => dispatch(changeInputSearch(e.target.value))}
+            />
+            <button type="submit">
+                <div>Поиск</div>
+            </button>
+        </form>
     );
 };
 

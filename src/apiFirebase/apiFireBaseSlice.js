@@ -85,7 +85,10 @@ export const apiFireBaseSlice = createApi({
                     const docRef = doc(db, "allusers", email);
                     const user = await getDoc(docRef);
                     const res = user.data();
-                    res.getAll = true;
+                    const transformResponse = () => {
+                        res.getAll = true;
+                    };
+                    transformResponse();
                     return { data: res };
                 } catch (error) {
                     return { data: "error" };
@@ -146,7 +149,7 @@ export const apiFireBaseSlice = createApi({
         }),
     }),
 });
-console.log("dasdas");
+
 export const {
     useDeleteHistoryMutation,
     useDeleteFavoriteMutation,
