@@ -1,7 +1,6 @@
 import { fetchCharacter } from "../MainPage/MainPageSlice";
 import { useDeleteFavoriteMutation } from "../../../apiFirebase/apiFireBaseSlice";
 import { useLazyGetInfoUserQuery } from "../../../apiFirebase/apiFireBaseSlice";
-import { userData } from "../LoginPage/LoginPageSlice";
 import FavoriteListItem from "../../FavoriteList/FavoriteListItem";
 import "./FavoritePage.scss";
 import { motion } from "framer-motion";
