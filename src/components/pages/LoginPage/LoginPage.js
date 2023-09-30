@@ -1,5 +1,5 @@
-import { useLazyLoginQuery } from "../../../apiFirebase/apiFireBaseSlice";
-import { useLazyGetInfoUserQuery } from "../../../apiFirebase/apiFireBaseSlice";
+import { useLazyLoginQuery } from "../../../apiFirebase/apiFireBase.Slice";
+import { useLazyGetInfoUserQuery } from "../../../apiFirebase/apiFireBase.Slice";
 import Form from "../../Form/Form";
 import { motion } from "framer-motion";
 import "./LoginPage.scss";

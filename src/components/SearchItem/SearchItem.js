@@ -1,5 +1,5 @@
 import useDebounce from "../hooks/useDebounce.hook";
-import { useUpdateHistoryMutation } from "../../apiFirebase/apiFireBaseSlice";
+import { useUpdateHistoryMutation } from "../../apiFirebase/apiFireBase.Slice";
 import { getSearhCharacterFetch } from "../pages/FoundCharactersPage/FoundCharactersPage.slice";
 import { clearInput } from "../pages/FoundCharactersPage/FoundCharactersPage.slice";
 import { changeInputSearch } from "../pages/FoundCharactersPage/FoundCharactersPage.slice";

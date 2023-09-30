@@ -1,11 +1,11 @@
-import SearchItem from "../../SearchItem/SearchItem";
+import { clearInput } from "./FoundCharactersPage.slice";
 import CharsList from "../../CharsList/CharsList";
 import ErrorBoundary from "../../ErrorBoundary/ErrorBoundary";
 import Spinner from "../../Spinner/Spinner";
-import { useLazyGetInfoUserQuery } from "../../../apiFirebase/apiFireBaseSlice";
-import { useUpdateFavoriteMutation } from "../../../apiFirebase/apiFireBaseSlice";
-import { useDeleteFavoriteMutation } from "../../../apiFirebase/apiFireBaseSlice";
-import { fetchCharacter } from "../MainPage/MainPageSlice";
+import { useLazyGetInfoUserQuery } from "../../../apiFirebase/apiFireBase.Slice";
+import { useUpdateFavoriteMutation } from "../../../apiFirebase/apiFireBase.Slice";
+import { useDeleteFavoriteMutation } from "../../../apiFirebase/apiFireBase.Slice";
+import { fetchCharacter } from "../MainPage/MainPage.Slice";
 import "./FoundCharactersPage.scss";
 import { motion } from "framer-motion";
 import { useNavigate } from "react-router-dom";
@@ -33,8 +33,9 @@ const FoundCharactersPage = () => {
     }, [userOnline, navigate]);
 
     useEffect(() => {
+        dispatch(clearInput());
         triggerGetinfo(email);
-    }, [triggerGetinfo, email]);
+    }, [triggerGetinfo, email, dispatch]);
 
     if (loadingStatus === "loading") {
         return <Spinner />;
@@ -75,7 +76,6 @@ const FoundCharactersPage = () => {
                         />
                     </ErrorBoundary>
                 </div>
-                <SearchItem />
             </div>
         </motion.div>
     );

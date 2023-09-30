@@ -1,4 +1,4 @@
-import { fetchCharacter } from "../pages/MainPage/MainPageSlice";
+import { fetchCharacter } from "../pages/MainPage/MainPage.Slice";
 import { clearInput } from "../pages/FoundCharactersPage/FoundCharactersPage.slice";
 import { useDispatch, useSelector } from "react-redux";
 import "./CharacterSearchList.scss";
@@ -9,13 +9,11 @@ const CharacterSearchList = () => {
     const navigate = useNavigate();
     const characters = useSelector((state) => state.search.searchCharacters);
     let chars;
-
     const onChangeTargetCharacter = (id) => {
         dispatch(fetchCharacter(id));
         dispatch(clearInput());
         navigate("/info");
     };
-
     if (Array.isArray(characters) && characters.length > 5) {
         chars = characters.slice(0, 6);
     }

@@ -60,7 +60,14 @@ export const apiFireBaseSlice = createApi({
                     await updateDoc(userRef, {
                         history: arrayRemove(arg.newHistory),
                     });
-                    return { data: "ok" };
+                    const user = await getDoc(userRef);
+                    const res = user.data();
+                    const transformResponse = () => {
+                        res.deleteHistory = true;
+                        res.deletedItem = arg.newHistory;
+                    };
+                    transformResponse();
+                    return { data: res };
                 } catch (error) {
                     return { data: "error" };
                 }

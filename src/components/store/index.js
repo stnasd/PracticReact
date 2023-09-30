@@ -1,7 +1,7 @@
 import { favoriteMiddleWare } from "./middleWare/middleWare";
-import { apiFireBaseSlice } from "../../apiFirebase/apiFireBaseSlice";
-import characters from "../pages/MainPage/MainPageSlice";
-import login from "../pages/LoginPage/LoginPageSlice";
+import { apiFireBaseSlice } from "../../apiFirebase/apiFireBase.Slice";
+import characters from "../pages/MainPage/MainPage.Slice";
+import login from "../pages/LoginPage/LoginPage.Slice";
 import favorite from "../pages/FavoritePage/FavoritePage.slice";
 import search from "../pages/FoundCharactersPage/FoundCharactersPage.slice";
 import { configureStore } from "@reduxjs/toolkit";

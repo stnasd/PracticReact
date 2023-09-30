@@ -28,10 +28,16 @@ const LoginPageSlice = createSlice({
             state.userOnlineFavorite = "";
             state.userOnlineHistory = "";
         },
+        userDeleteHistoryItem: (state, actionItemName) => {
+            state.userOnlineHistory = state.userOnlineHistory.filter((item) => {
+                return item !== actionItemName.payload;
+            });
+        },
     },
 });
 
 const { actions, reducer } = LoginPageSlice;
 
-export const { userDropData, userData, useronline } = actions;
+export const { userDropData, userData, useronline, userDeleteHistoryItem } =
+    actions;
 export default reducer;

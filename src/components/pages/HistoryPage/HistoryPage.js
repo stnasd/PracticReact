@@ -1,4 +1,8 @@
-import { useLazyGetInfoUserQuery } from "../../../apiFirebase/apiFireBaseSlice";
+import {
+    useLazyGetInfoUserQuery,
+    useDeleteHistoryMutation,
+} from "../../../apiFirebase/apiFireBase.Slice";
+import { getSearhHandleCharactersFetch } from "../FoundCharactersPage/FoundCharactersPage.slice";
 import "./HistoryPage.scss";
 import { motion } from "framer-motion";
 import { useNavigate } from "react-router-dom";
@@ -7,6 +11,7 @@ import { useEffect } from "react";
 
 const HistoryPage = () => {
     const dispatch = useDispatch();
+    const [deleteHistoryFn] = useDeleteHistoryMutation();
     const [triggerGetinfo] = useLazyGetInfoUserQuery();
     const navigate = useNavigate();
     const userOnline = useSelector((state) => state.login.userOnline);
@@ -22,12 +27,31 @@ const HistoryPage = () => {
         }
     }, [userOnline, navigate]);
 
+    const onHandleClick = (item) => {
+        dispatch(getSearhHandleCharactersFetch(item));
+        navigate("/search");
+    };
+    const onDeleteItem = (newHistory, e) => {
+        e.stopPropagation();
+        deleteHistoryFn({ email, newHistory });
+    };
+
     const renderSearchHistoyItemsFn = (itemsHistory) => {
         if (itemsHistory.length !== 0) {
             return itemsHistory.map((item) => {
                 return (
-                    <div className="history__items-url" key={item}>
+                    <div
+                        className="history__items-url"
+                        key={item}
+                        onClick={() => onHandleClick(item)}
+                    >
                         {item}
+                        <button
+                            className="history__items-button"
+                            onClick={(e) => onDeleteItem(item, e)}
+                        >
+                            Delete
+                        </button>
                     </div>
                 );
             });

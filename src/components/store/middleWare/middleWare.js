@@ -1,11 +1,18 @@
-import { userData } from "../../pages/LoginPage/LoginPageSlice";
+import {
+    userData,
+    userDeleteHistoryItem,
+} from "../../pages/LoginPage/LoginPage.Slice";
 import { fetchAddFavoriteCharacter } from "../../pages/FavoritePage/FavoritePage.slice";
 import { fetchFavoriteCharacter } from "../../pages/FavoritePage/FavoritePage.slice";
 import { deleteFavoritemCharacter } from "../../pages/FavoritePage/FavoritePage.slice";
 
 export const favoriteMiddleWare = (state) => (next) => (action) => {
     if (action.type === "api/executeMutation/fulfilled") {
-        if (!action.payload.deleteFavorite && action.payload !== "ok") {
+        if (
+            !action.payload.deleteFavorite &&
+            action.payload !== "ok" &&
+            !action.payload.deleteHistory
+        ) {
             const { favorite, history } = action.payload;
             state.dispatch(userData({ favorite, history }));
             state.dispatch(fetchAddFavoriteCharacter(favorite));
@@ -14,6 +21,11 @@ export const favoriteMiddleWare = (state) => (next) => (action) => {
             state.dispatch(
                 deleteFavoritemCharacter(action.payload.deletedItem)
             );
+            const { favorite, history } = action.payload;
+            state.dispatch(userData({ favorite, history }));
+        }
+        if (action.payload.deleteHistory) {
+            state.dispatch(userDeleteHistoryItem(action.payload.deletedItem));
             const { favorite, history } = action.payload;
             state.dispatch(userData({ favorite, history }));
         }
