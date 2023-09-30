@@ -1,6 +1,7 @@
 import AnimatedRoutes from "./AnimatedRoutes";
-import { useronline } from "../pages/LoginPage/LoginPageSlice";
-import { useLazyGetInfoUserQuery } from "../../apiFirebase/apiFireBaseSlice";
+import { clearInput } from "../pages/FoundCharactersPage/FoundCharactersPage.slice";
+import { useronline } from "../pages/LoginPage/LoginPage.Slice";
+import { useLazyGetInfoUserQuery } from "../../apiFirebase/apiFireBase.Slice";
 import AppHeader from "../header/AppHeader";
 import Spinner from "../Spinner/Spinner";
 import { BrowserRouter as Router } from "react-router-dom";
@@ -20,6 +21,7 @@ function App() {
             if (user !== null && user) {
                 dispatch(useronline(user.email));
                 triggerGetinfo(user.email);
+                dispatch(clearInput());
             } else {
                 dispatch(useronline("offline"));
             }

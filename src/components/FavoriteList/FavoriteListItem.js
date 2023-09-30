@@ -20,7 +20,7 @@ const FavoriteList = ({
                 </button>
             );
             return (
-                <div className="char__item" timeout={700} key={id}>
+                <div className="char__item" timeout={700} key={id + name}>
                     <img src={`${image}`} alt={name} />
                     <div className="char__name">name : {name}</div>
                     <div className="char__item-playedby">Origin : {origin}</div>

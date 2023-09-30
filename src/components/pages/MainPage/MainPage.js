@@ -3,12 +3,11 @@ import {
     fetchCharacter,
     addCharactersPage,
     addCharactersItems,
-} from "./MainPageSlice";
-import { useUpdateFavoriteMutation } from "../../../apiFirebase/apiFireBaseSlice";
-import { useDeleteFavoriteMutation } from "../../../apiFirebase/apiFireBaseSlice";
+} from "./MainPage.Slice";
+import { useUpdateFavoriteMutation } from "../../../apiFirebase/apiFireBase.Slice";
+import { useDeleteFavoriteMutation } from "../../../apiFirebase/apiFireBase.Slice";
 import useCharService from "../../../services/CharsServices";
 import CharsList from "../../CharsList/CharsList";
-import SearchItem from "../../SearchItem/SearchItem";
 import Spinner from "../../Spinner/Spinner";
 import ErrorBoundary from "../../ErrorBoundary/ErrorBoundary";
 import "./MainPage.scss";
@@ -70,30 +69,18 @@ const MainPage = () => {
             animate={{ opacity: 1, transition: { duration: 0.3 } }}
             exit={{ opacity: 0, transition: { duration: 0.1 } }}
         >
-            <>
-                <div className="app__main-grid">
-                    <ErrorBoundary>
-                        <CharsList
-                            charactersList={charactersList}
-                            favorite={favorite}
-                            onChangeTargetCharacter={onChangeTargetCharacter}
-                            onAddNewFavorite={onAddNewFavorite}
-                            onDeleteFavorite={onDeleteFavorite}
-                            userOnline={userOnline}
-                        />
-                    </ErrorBoundary>
-                </div>
-                <div className="app__main-search-field">
-                    {userOnline ? (
-                        <label className="form__label" htmlFor="button__char">
-                            Найти персонажа
-                        </label>
-                    ) : null}
-                    <br />
-                    <br />
-                    {userOnline ? <SearchItem /> : null}
-                </div>
-            </>
+            <div className="app__main-grid">
+                <ErrorBoundary>
+                    <CharsList
+                        charactersList={charactersList}
+                        favorite={favorite}
+                        onChangeTargetCharacter={onChangeTargetCharacter}
+                        onAddNewFavorite={onAddNewFavorite}
+                        onDeleteFavorite={onDeleteFavorite}
+                        userOnline={userOnline}
+                    />
+                </ErrorBoundary>
+            </div>
             <button
                 className="button__char"
                 onClick={() => onLoadNewCharacters(charsPage)}

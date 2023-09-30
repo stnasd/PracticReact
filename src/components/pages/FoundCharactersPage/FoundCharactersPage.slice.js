@@ -9,7 +9,16 @@ const initialState = {
 };
 
 export const getSearhCharacterFetch = createAsyncThunk(
-    "favorite/fetchAddFavoriteCharacter",
+    // "favorite/fetchAddFavoriteCharacter",
+    "favorite/getSearhCharacterFetch",
+    (name) => {
+        const { getSearchCharacters } = useCharService();
+        const res = getSearchCharacters(name);
+        return res;
+    }
+);
+export const getSearhHandleCharactersFetch = createAsyncThunk(
+    "favorite/getSearhHandleCharactersFetch",
     (name) => {
         const { getSearchCharacters } = useCharService();
         const res = getSearchCharacters(name);
@@ -46,6 +55,13 @@ const SearchItemSlice = createSlice({
                 state.searchCharacters = [];
                 state.loadingStatus = "error";
             })
+            .addCase(
+                getSearhHandleCharactersFetch.fulfilled,
+                (state, actionCharSearch) => {
+                    state.loadingStatus = "idle";
+                    state.foundСharacters = actionCharSearch.payload;
+                }
+            )
             .addDefaultCase(() => {});
     },
 });

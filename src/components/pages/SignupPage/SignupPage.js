@@ -1,4 +1,4 @@
-import { useSignupMutation } from "../../../apiFirebase/apiFireBaseSlice";
+import { useSignupMutation } from "../../../apiFirebase/apiFireBase.Slice";
 import "./SignupPage.scss";
 import Form from "../../Form/Form";
 import { motion } from "framer-motion";

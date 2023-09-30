@@ -1,5 +1,5 @@
-import { useDeleteFavoriteMutation } from "../../apiFirebase/apiFireBaseSlice";
-import { useUpdateFavoriteMutation } from "../../apiFirebase/apiFireBaseSlice";
+import { useDeleteFavoriteMutation } from "../../apiFirebase/apiFireBase.Slice";
+import { useUpdateFavoriteMutation } from "../../apiFirebase/apiFireBase.Slice";
 import dataTextButtonsOnline from "../context/context";
 import "./CharInfo.scss";
 import Spinner from "../Spinner/Spinner";
