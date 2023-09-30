@@ -17,7 +17,6 @@ const HistoryPage = () => {
     const userOnline = useSelector((state) => state.login.userOnline);
     const userHistory = useSelector((state) => state.login.userOnlineHistory);
     const email = useSelector((state) => state.login.userEmail);
-
     useEffect(() => {
         triggerGetinfo(email);
     }, [triggerGetinfo, dispatch, email]);

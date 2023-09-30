@@ -9,7 +9,6 @@ const initialState = {
 };
 
 export const getSearhCharacterFetch = createAsyncThunk(
-    // "favorite/fetchAddFavoriteCharacter",
     "favorite/getSearhCharacterFetch",
     (name) => {
         const { getSearchCharacters } = useCharService();
