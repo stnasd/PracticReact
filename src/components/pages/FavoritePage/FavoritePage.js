@@ -1,3 +1,4 @@
+import { useAllSelectors } from "../../selectors/selectors";
 import { fetchCharacter } from "../MainPage/MainPage.Slice";
 import { useDeleteFavoriteMutation } from "../../../apiFirebase/apiFireBase.Slice";
 import { useLazyGetInfoUserQuery } from "../../../apiFirebase/apiFireBase.Slice";
@@ -6,18 +7,15 @@ import "./FavoritePage.scss";
 import { motion } from "framer-motion";
 import { useNavigate } from "react-router-dom";
 import { useEffect } from "react";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 
 const FavoritePage = () => {
     const navigate = useNavigate();
     const dispatch = useDispatch();
     const [triggerGetinfo] = useLazyGetInfoUserQuery();
     const [deleteFavoritemFn] = useDeleteFavoriteMutation();
-    const userOnline = useSelector((state) => state.login.userOnline);
-    const email = useSelector((state) => state.login.userEmail);
-    const favoriteCharacters = useSelector(
-        (state) => state.favorite.favoriteIdCharacters
-    );
+
+    const { userOnline, userEmail, favoriteIdCharacters } = useAllSelectors();
     useEffect(() => {
         if (!userOnline) {
             navigate("/");
@@ -25,11 +23,11 @@ const FavoritePage = () => {
     }, [userOnline, navigate]);
 
     useEffect(() => {
-        triggerGetinfo(email);
-    }, [triggerGetinfo, dispatch, email]);
+        triggerGetinfo(userEmail);
+    }, [triggerGetinfo, dispatch, userEmail]);
 
     const onDeleteFavorite = (favoriteItem) => {
-        deleteFavoritemFn({ email, favoriteItem });
+        deleteFavoritemFn({ userEmail, favoriteItem });
     };
 
     const onChangeTargetCharacter = (e) => {
@@ -46,11 +44,11 @@ const FavoritePage = () => {
         >
             <div className="app__favorite-text">Ваши избранные персонажи</div>
             <div className="app__favorite-grid">
-                {favoriteCharacters.length !== 0 ? (
+                {favoriteIdCharacters.length !== 0 ? (
                     <FavoriteListItem
                         onChangeTargetCharacter={onChangeTargetCharacter}
                         onDeleteFavorite={onDeleteFavorite}
-                        favoriteCharacters={favoriteCharacters}
+                        favoriteIdCharacters={favoriteIdCharacters}
                     />
                 ) : (
                     <div className="history__items-url">

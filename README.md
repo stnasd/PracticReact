@@ -27,7 +27,7 @@
 -   [x] Есть применение Контекст [API](src/components/context/context.js)
 -   [x] Есть применение [предохранителя](src/components/ErrorBoundary/ErrorBoundary.js)
 -   [x] Есть хотя бы один кастомный [хук](src/components/hooks/http.hook.js)
--   [x] отя бы несколько компонентов используют PropTypes [1](src/components/CharsList/CharsList.js),[2](src/components/Form/Form.js)
+-   [x] Хотя бы несколько компонентов используют PropTypes [1](src/components/CharsList/CharsList.js),[2](src/components/Form/Form.js)
 -   [x] Поиск не должен триггерить много запросов к серверу [(debounce)](src/components/SearchItem/SearchItem.js)
 -   [x] Есть применение [lazy](src/components/app/AnimatedRoutes.js) + [Suspense](src/components/app/App.js)
 -   [x] Используем Modern Redux with Redux [Toolkit](practicReact/src/components/store/index.js)

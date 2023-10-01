@@ -2,7 +2,7 @@ import dataTextButtonsOnline from "../context/context";
 import { useContext } from "react";
 
 const FavoriteList = ({
-    favoriteCharacters,
+    favoriteIdCharacters,
     onDeleteFavorite,
     onChangeTargetCharacter,
 }) => {
@@ -35,7 +35,7 @@ const FavoriteList = ({
             );
         });
     };
-    const favoriteItems = renderItems(favoriteCharacters);
+    const favoriteItems = renderItems(favoriteIdCharacters);
 
     return <>{favoriteItems}</>;
 };

@@ -1,21 +1,22 @@
+import { useAllSelectors } from "../selectors/selectors";
 import { fetchCharacter } from "../pages/MainPage/MainPage.Slice";
 import { clearInput } from "../pages/FoundCharactersPage/FoundCharactersPage.slice";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import "./CharacterSearchList.scss";
 import { useNavigate } from "react-router-dom";
 
 const CharacterSearchList = () => {
     const dispatch = useDispatch();
     const navigate = useNavigate();
-    const characters = useSelector((state) => state.search.searchCharacters);
+    const { searchCharacters } = useAllSelectors();
     let chars;
     const onChangeTargetCharacter = (id) => {
         dispatch(fetchCharacter(id));
         dispatch(clearInput());
         navigate("/info");
     };
-    if (Array.isArray(characters) && characters.length > 5) {
-        chars = characters.slice(0, 6);
+    if (Array.isArray(searchCharacters) && searchCharacters.length > 5) {
+        chars = searchCharacters.slice(0, 6);
     }
     const renderItems = (characters) => {
         if (Array.isArray(characters) && characters.length !== 0) {
