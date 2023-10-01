@@ -8,7 +8,7 @@ import { useNavigate } from "react-router-dom";
 const CharacterSearchList = () => {
     const dispatch = useDispatch();
     const navigate = useNavigate();
-    const { searchCharacters } = useAllSelectors();
+    const { searchCharacters, loadingStatus } = useAllSelectors();
     let chars;
     const onChangeTargetCharacter = (id) => {
         dispatch(fetchCharacter(id));
@@ -39,9 +39,27 @@ const CharacterSearchList = () => {
             });
         }
     };
+    const notFoundCharacters =
+        loadingStatus === "error" ? (
+            <div
+                style={{
+                    height: "100px",
+                    width: "100px",
+                    display: "flex",
+                    flexDirection: "column",
+                    alignItems: "center",
+                    justifyContent: "center",
+                    marginLeft: "190px",
+                    fontSize: "17px",
+                }}
+            >
+                Персонажи не найдены
+            </div>
+        ) : null;
     const renderCharacters = renderItems(chars);
     return (
         <div className="search__char-grid">
+            {notFoundCharacters}
             {Array.isArray(chars) && chars.length !== 0
                 ? renderCharacters
                 : null}
