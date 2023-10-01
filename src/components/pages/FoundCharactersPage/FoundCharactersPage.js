@@ -1,4 +1,5 @@
 import { clearInput } from "./FoundCharactersPage.slice";
+import { useAllSelectors } from "../../selectors/selectors";
 import CharsList from "../../CharsList/CharsList";
 import ErrorBoundary from "../../ErrorBoundary/ErrorBoundary";
 import Spinner from "../../Spinner/Spinner";
@@ -10,7 +11,7 @@ import "./FoundCharactersPage.scss";
 import { motion } from "framer-motion";
 import { useNavigate } from "react-router-dom";
 import { useEffect } from "react";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 
 const FoundCharactersPage = () => {
     const navigate = useNavigate();
@@ -18,14 +19,14 @@ const FoundCharactersPage = () => {
     const [updateFavoriteFn] = useUpdateFavoriteMutation();
     const [deleteFavoriteFn] = useDeleteFavoriteMutation();
     const [triggerGetinfo] = useLazyGetInfoUserQuery();
+    const {
+        charsLoadingStatus,
+        userEmail,
+        userOnlineFavorite,
+        userOnline,
+        foundСharacters,
+    } = useAllSelectors();
 
-    const loadingStatus = useSelector(
-        (state) => state.characters.charsLoadingStatus
-    );
-    const email = useSelector((state) => state.login.userEmail);
-    const favorite = useSelector((state) => state.login.userOnlineFavorite);
-    const userOnline = useSelector((state) => state.login.userOnline);
-    const characters = useSelector((state) => state.search.foundСharacters);
     useEffect(() => {
         if (!userOnline) {
             navigate("/");
@@ -34,12 +35,12 @@ const FoundCharactersPage = () => {
 
     useEffect(() => {
         dispatch(clearInput());
-        triggerGetinfo(email);
-    }, [triggerGetinfo, email, dispatch]);
+        triggerGetinfo(userEmail);
+    }, [triggerGetinfo, userEmail, dispatch]);
 
-    if (loadingStatus === "loading") {
+    if (charsLoadingStatus === "loading") {
         return <Spinner />;
-    } else if (loadingStatus === "error") {
+    } else if (charsLoadingStatus === "error") {
         return <h5>Ошибка загрузки</h5>;
     }
 
@@ -49,10 +50,10 @@ const FoundCharactersPage = () => {
     };
 
     const onAddNewFavorite = (newFavorite) => {
-        updateFavoriteFn({ email, newFavorite });
+        updateFavoriteFn({ userEmail, newFavorite });
     };
     const onDeleteFavorite = (favoriteItem) => {
-        deleteFavoriteFn({ email, favoriteItem });
+        deleteFavoriteFn({ userEmail, favoriteItem });
     };
 
     return (
@@ -67,8 +68,8 @@ const FoundCharactersPage = () => {
                 <div className="search__block-grid">
                     <ErrorBoundary>
                         <CharsList
-                            charactersList={characters}
-                            favorite={favorite}
+                            charactersList={foundСharacters}
+                            favorite={userOnlineFavorite}
                             onChangeTargetCharacter={onChangeTargetCharacter}
                             onAddNewFavorite={onAddNewFavorite}
                             onDeleteFavorite={onDeleteFavorite}
