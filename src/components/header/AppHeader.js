@@ -1,4 +1,4 @@
-import { clearInput } from "../pages/FoundCharactersPage/FoundCharactersPage.slice";
+import { useAllSelectors } from "../selectors/selectors";
 import { useronline, userDropData } from "../pages/LoginPage/LoginPage.Slice";
 import { userQuit } from "../pages/FavoritePage/FavoritePage.slice";
 import { useSignoutMutation } from "../../apiFirebase/apiFireBase.Slice";
@@ -7,13 +7,12 @@ import CharacterSearchList from "../CharacterSearchList/CharacterSearchList";
 import "./AppHeader.scss";
 import cucumber from "../../images/14-68.jpg";
 import { Link } from "react-router-dom";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
-import { useEffect } from "react";
 
 const AppHeader = () => {
     const [onUserSignOut] = useSignoutMutation();
-    const userAuthorized = useSelector((state) => state.login.userOnline);
+    const { userOnline } = useAllSelectors();
 
     const navigate = useNavigate();
     const dispatch = useDispatch();
@@ -26,10 +25,7 @@ const AppHeader = () => {
         dispatch(userQuit());
     };
 
-    useEffect(() => {
-        dispatch(clearInput());
-    });
-    const header = userAuthorized ? (
+    const header = userOnline ? (
         <header className="app__header">
             <nav className="app__header-nav">
                 <Link to="/">

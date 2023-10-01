@@ -1,10 +1,10 @@
+import { useAllSelectors } from "../selectors/selectors";
 import { useDeleteFavoriteMutation } from "../../apiFirebase/apiFireBase.Slice";
 import { useUpdateFavoriteMutation } from "../../apiFirebase/apiFireBase.Slice";
 import dataTextButtonsOnline from "../context/context";
 import "./CharInfo.scss";
 import Spinner from "../Spinner/Spinner";
 import ErrorMessenge from "../ErrorMessenge/ErrorMessenge";
-import { useSelector } from "react-redux";
 import { useContext } from "react";
 
 const CharInfo = () => {
@@ -12,20 +12,18 @@ const CharInfo = () => {
     const { add, deleted } = textButtonsContext;
     const [updateFavoriteFn] = useUpdateFavoriteMutation();
     const [deleteFavoriteFn] = useDeleteFavoriteMutation();
-    const email = useSelector((state) => state.login.userEmail);
-    const favorite = useSelector((state) => state.login.userOnlineFavorite);
-    const character = useSelector((state) => state.characters.character);
-    const loadingStatus = useSelector(
-        (state) => state.characters.characterLoading
-    );
+
+    const { userEmail, userOnlineFavorite, character, characterLoading } =
+        useAllSelectors();
+
     const { image, location, origin, species, status, type, name, id } =
         character;
 
     const onAddNewFavorite = (newFavorite) => {
-        updateFavoriteFn({ email, newFavorite });
+        updateFavoriteFn({ userEmail, newFavorite });
     };
     const onDeleteFavorite = (favoriteItem) => {
-        deleteFavoriteFn({ email, favoriteItem });
+        deleteFavoriteFn({ userEmail, favoriteItem });
     };
     const buttonDelete = (
         <button
@@ -44,12 +42,12 @@ const CharInfo = () => {
         </button>
     );
     const renderButtonsFn = () => {
-        if (favorite && favorite.length === 0) {
+        if (userOnlineFavorite && userOnlineFavorite.length === 0) {
             return buttonAdd;
         }
-        if (favorite) {
-            for (let i = 0; i < favorite.length; i++) {
-                if (favorite.includes(id)) {
+        if (userOnlineFavorite) {
+            for (let i = 0; i < userOnlineFavorite.length; i++) {
+                if (userOnlineFavorite.includes(id)) {
                     return buttonDelete;
                 } else {
                     return buttonAdd;
@@ -58,9 +56,9 @@ const CharInfo = () => {
         }
     };
 
-    if (loadingStatus === "loading") {
+    if (characterLoading === "loading") {
         return <Spinner />;
-    } else if (loadingStatus === "error") {
+    } else if (characterLoading === "error") {
         return <ErrorMessenge />;
     }
     return (
